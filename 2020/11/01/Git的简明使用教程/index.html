@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git的简明使用教程 | 加班猿</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script><script>mermaid.initialize({
+  startOnLoad: true
+  , theme: 'dark'
+});</script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/about/">About</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-11-01T04:00:13.952Z" id="date"> 2020-11-01</time></span><br><span>updated:<time datetime="2020-11-01T04:32:11.017Z" id="updated"> 2020-11-01</time></span></div><h1>Git的简明使用教程</h1><hr></div><div id="post-content"><h1 id="git管理文件和代码的使用"><a href="#git管理文件和代码的使用" class="headerlink" title="git管理文件和代码的使用"></a>git管理文件和代码的使用</h1><p><img src="https://img-blog.csdnimg.cn/20201014220601139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div align = 'right'>作者：hackett</div>
+
+<div align = 'right'>微信公众号：加班猿</div>
+
+<p>Git是一个免费的开源 分布式版本控制系统，旨在快速高效地处理从小型到大型项目的所有内容。Git易于学习， 占地面积小，具有闪电般的快速性能。它具有Subversion，CVS，Perforce和ClearCase之类的SCM工具，具有廉价的本地分支，方便的暂存区域和 多个工作流等功能。–《<a target="_blank" rel="noopener" href="https://git-scm.com/">Git官网</a>》</p>
+<p>依稀还记得当初写论文的时候，保存的论文文档是这样子的，代码文件夹是这样的。根据需求删除或修改一些东西后另存为另一个文件，过一段时间后，想找回被删除的文字/代码，但是不知道保存在哪个文件里去了，想保留最新的一个把其他都删除掉，又怕哪天会用上不敢删除，真的烦人，这个时候就轮到我们强大的Git出场了，顺便记录一下自己从<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰的官方网站Git教程</a>的学习。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/bef9a93e6039da70fc3f78db5cabcefc.png" alt="img"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/7d2b24243c40e091b365671a54d44ba4.png" alt="img"></p>
+<h1 id="我工作中常用的指令"><a href="#我工作中常用的指令" class="headerlink" title="我工作中常用的指令"></a>我工作中常用的指令</h1><p>1、如果你没有项目的代码，组长一般都会给你一个链接，这时候你就可以用git命令<font color = red size = 4><code>git clone</code></font>下来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">git clone  https:&#x2F;&#x2F;github.com&#x2F;CodingEmbedded&#x2F;mygit.git<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201014222104920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>2、接到主管的需求（此刻的我是想拿我的ZFB收款码出来的），一般来说都是新建一个分支的去开发的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">git check -b 分支名<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201014223036742.png#pic_center" alt="在这里插入图片描述"><br>3、此时就可以愉快地写bug了,有时候同事/主管问你改了什么问题，你改了挺多不记得可以先<font color = red size = 4><code>status</code></font>再<font color = red size = 4><code>diff</code></font>一下可以看到我们修改了那些文件增删了那些内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">git status<br>git diff<br></code></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/2020101423032456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>4、写好之后就可以先<font color = red size = 4><code>git add</code></font>再<font color = red size = 4><code>git commit</code></font>进行本地代码的提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">git add<br>git commit -m &quot;message&quot;<br></code></pre></td></tr></table></figure>
+
+
+<p>5、提交到远程仓库需要用<font color = red size = 4><code>push</code></font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">git push<br></code></pre></td></tr></table></figure>
+
+<p>6、假如在你写的时候有人提交了代码，这时候你需要<font color = red size = 4><code>pull</code></font>最新的代码下来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">git pull<br></code></pre></td></tr></table></figure>
+<p>如果没有冲突就可以提交代码（有冲突的话就按照Git提示做修改再提交）</p>
+<p>7、你的代码有一个致命bug，并且已经提交到了远程仓库，版本回退的方法：<br>先用下面命令找到要回退的版本的commit_id：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">git reflog<br></code></pre></td></tr></table></figure>
+<p>然后回退版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">git reset --hard commit_id<br></code></pre></td></tr></table></figure>
+<p>最后强制推送到远程分支：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">git push -f<br></code></pre></td></tr></table></figure>
+<p>可以看到<strong>图1</strong>是提交了一个记录为“add or del”，<strong>图2图3</strong>为回退版本操作，<strong>图4图5</strong>对比可以看出git已经回退了</p>
+<center>图1</center>
+
+<p><img src="https://img-blog.csdnimg.cn/20201014233850337.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<center>图2</center>
+
+<p><img src="https://img-blog.csdnimg.cn/20201014233904472.png#pic_center" alt="在这里插入图片描述"></p>
+<center>图3</center>
+
+<p><img src="https://img-blog.csdnimg.cn/20201014233919767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<center>图4</center>
+
+<p><img src="https://img-blog.csdnimg.cn/20201014234446419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<center>图5</center>
+
+<p><img src="https://img-blog.csdnimg.cn/20201014234653420.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="一、创建版本库"><a href="#一、创建版本库" class="headerlink" title="一、创建版本库"></a>一、创建版本库</h2><p>1、新建一个空目录(如下我是<font color = red size = 4><code>E</code></font>盘 –&gt; <font color = red size = 4><code>code</code></font>目录下新建一个<font color = red size = 4><code>test</code></font>版本库)</p>
+<p>2、通过<font color = red size = 4><code>git init</code></font>命令把这个目录变成Git可以管理的仓库</p>
+<p>3、<font color = red size = 4><code>ls -ah</code></font>查看<font color = red size = 4><code>.git</code></font>&gt;目录和<font color = red size = 4><code>./</code></font>&gt;<font color = red size = 4><code>../</code></font>&gt;，那是因为<font color = red size = 4><code>.git</code></font>这个目录默认是隐藏的。<img src="https://img-blog.csdnimg.cn/img_convert/2a89b1a344fe4903932aff01352ce736.png" alt="img"></p>
+<h2 id="二、添加文件到仓库"><a href="#二、添加文件到仓库" class="headerlink" title="二、添加文件到仓库"></a>二、添加文件到仓库</h2><p>1、编写一个文件 text.txt</p>
+<p>2、使用命令<font color = red size = 4><code>git add  &lt;file&gt;</code></font>，可反复多次使用，添加多个文件，添加全部文件使用<font color = red size = 4><code>git add -A</code></font></p>
+<p>3、使用命令<font color = red size = 4><code>git commit -m &lt;message&gt;</code></font>，完成，<font color = red size = 4><code>message</code></font>为提交的文本信息</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/52b373c8a5bbaf4a1b1e50252b0d402b.png" alt="img"></p>
+<h2 id="三、查看工作状态和修改的文件"><a href="#三、查看工作状态和修改的文件" class="headerlink" title="三、查看工作状态和修改的文件"></a>三、查看工作状态和修改的文件</h2><p>1、要随时掌握工作区的状态，使用<font color = red size = 4><code>git status</code></font>命令。</p>
+<p>2、如果<font color = red size = 4><code>git status</code></font>告诉你有文件被修改过，用<font color = red size = 4><code>git diff</code></font>可以查看修改内容。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f9d6df6cefc446fd74c405d791eeb86c.png" alt="img"></p>
+<h2 id="四、git的版本回退"><a href="#四、git的版本回退" class="headerlink" title="四、git的版本回退"></a>四、git的版本回退</h2><p>1、版本回退前，用<font color = red size = 4><code>git log</code></font>可以查看提交历史，以便确定要回退到哪个版本。</p>
+<p>2、HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间回退，使用命令</p>
+<p><font color = red size = 4><code>git reset --hard commit_id</code></font>。</p>
+<p>3、Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本上一个版本就是<font color = red size = 4><code>HEAD^</code></font>，上上一个版本就是<font color = red size = 4><code>HEAD^^</code></font>，当然往上100个版本写100个^比较容易数不过来，所以写成<font color = red size = 4><code>HEAD~100</code></font>。</p>
+<p>4、要重返未来，用<font color = red size = 4><code>git reflog</code></font>查看命令历史，以便确定要回到未来的哪个版本。使用命令<font color = red size = 4><code>git reset --hard commit_id</code></font>。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/061d6a6694f862a09e7652f891550fd4.png" alt="img"></p>
+<h2 id="五、暂存区"><a href="#五、暂存区" class="headerlink" title="五、暂存区"></a>五、暂存区</h2><p> 提交一个readme.txt的过程</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/bbb5e931a8b878cf4c0aa610964049e8.png" alt="img"></p>
+<h2 id="六、管理修改"><a href="#六、管理修改" class="headerlink" title="六、管理修改"></a>六、管理修改</h2><p>Git是如何跟踪修改的，每次修改，如果不用<font color = red size = 4><code>git add</code></font>到暂存区，那就不会加入到<font color = red size = 4><code>commit</code></font>中。</p>
+<h2 id="七、撤销修改"><a href="#七、撤销修改" class="headerlink" title="七、撤销修改"></a>七、撤销修改</h2><p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<font color = red size = 4><code>git checkout -- file</code></font>。</p>
+<p>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<font color = red size = 4><code>git reset HEAD &lt;file&gt;</code></font>，就回到了场景1，第二步按场景1操作。</p>
+<p>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考四、git的版本回退一节（用git log查看命令历史，以便确定要回到未来的哪个版本。使用命令<font color = red size = 4><code>git reset --hard commit_id</code></font>），不过前提是没有推送到远程库。</p>
+<h2 id="八、删除文件"><a href="#八、删除文件" class="headerlink" title="八、删除文件"></a>八、删除文件</h2><p>命令<font color = red size = 4><code>git rm</code></font>用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失<font color = red size = 4><code>*最近一次提交后你修改的内容*</code></font>。</p>
+<p><font color = red size = 4><code>git checkout -- &lt;file&gt;</code></font>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。</p>
+<h2 id="九、添加远程库"><a href="#九、添加远程库" class="headerlink" title="九、添加远程库"></a>九、添加远程库</h2><p>第一步：在git下创建<font color = red size = 4><code>SSH Key</code></font>。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有<font color = red size = 4><code>id_rsa</code></font>和<font color = red size = 4><code>id_rsa.pub</code></font>这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：</p>
+<p><font color = red size = 4><code>$ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</code></font> </p>
+<p>你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。</p>
+<p>如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有<font color = red size = 4><code>id_rsa</code></font>和<font color = red size = 4><code>id_rsa.pub</code></font>两个文件，这两个就是SSH Key的秘钥对，<font color = red size = 4><code>id_rsa</code></font>是私钥，不能泄露出去，<font color = red size = 4><code>id_rsa.pub</code></font>是公钥，可以放心地告诉任何人。</p>
+<p>第二步：登陆GitHub，打开“Settings”，点<font color = red size = 4><code>“SSH and GPG keys”</code></font>，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容,点<font color = red size = 4><code>“Add Key”</code></font>，你就应该看到已经添加的Key：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/225d0dfd5250083799787e900b526bd8.png" alt="img">    第二步：创建一个GitHub账号，添加一个空的仓库。首先，登陆GitHub，然后，在右上角找到“new repository”按钮，创建一个新的仓库：在Repository name填入仓库名，其他保持默认设置，点击“Create repository”按钮，就成功地创建了一个新的Git仓库：</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5c8df56f54d84a0ba2ce65dbeaf8ac51.png" alt="img">    目前，在GitHub上的这个仓库还是空的，GitHub告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联，然后，把本地仓库的内容推送到GitHub仓库。</p>
+<p>现在，我们根据GitHub的提示，在本地的仓库下运行命令：<font color = red size = 4><code>git remote add origin + ssh链接</code></font></p>
+<p>使用命令<font color = red size = 4><code>git push -u origin master</code></font>将内容推送上去。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/178a7efd8092aaf235075741df407a5c.png" alt="img"></p>
+<p>注意：检查git的配置文件的邮箱还有用户名还有URL是否正确。才能进行下一步操作。</p>
+<p>要关联一个远程库，使用命令<font color = red size = 4><code>git remote add origin git@server-name:path/repo-name.git</code></font>；关联后，使用命令<font color = red size = 4><code>git push -u origin master</code></font>第一次推送master分支的所有内容；此后，每次本地提交后，只要有必要，就可以使用命令<font color = red size = 4><code>git push origin master</code></font>推送最新修改</p>
+<h2 id="十、从远程库克隆"><a href="#十、从远程库克隆" class="headerlink" title="十、从远程库克隆"></a>十、从远程库克隆</h2><p>要克隆一个仓库，首先必须知道仓库的地址，然后使用<font color = red size = 4><code>git clone+ ssh链接</code></font>命令克隆。</p>
+<p>Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。</p>
+<h2 id="十一、创建与分支（Git鼓励大量使用分支）"><a href="#十一、创建与分支（Git鼓励大量使用分支）" class="headerlink" title="十一、创建与分支（Git鼓励大量使用分支）"></a>十一、创建与分支（Git鼓励大量使用分支）</h2><p>查看分支：<font color = red size = 4><code>git branch</code></font></p>
+<p>创建分支：<font color = red size = 4><code>git branch &lt;name&gt;</code></font></p>
+<p>切换分支：<font color = red size = 4><code>git checkout &lt;name&gt;</code></font></p>
+<p>创建+切换分支：<font color = red size = 4><code>git checkout -b &lt;name&gt;</code></font></p>
+<p>合并某分支到当前分支：<font color = red size = 4><code>git merge &lt;name&gt;</code></font></p>
+<p>删除分支：<font color = red size = 4><code>git branch -d &lt;name&gt; </code></font></p>
+<h2 id="十二、解决冲突"><a href="#十二、解决冲突" class="headerlink" title="十二、解决冲突"></a>十二、解决冲突</h2><p>当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。用<font color = red size = 4><code>git log --graph</code></font>命令可以看到分支合并图。</p>
+<h2 id="十三、分支管理策略"><a href="#十三、分支管理策略" class="headerlink" title="十三、分支管理策略"></a>十三、分支管理策略</h2><p>准备合并dev分支，请注意<font color = red size = 4><code>--no-ff</code></font>参数，表示<font color = red size = 4><code>禁用Fast forward </code></font>，<font color = red size = 4><code>git merge --no-ff -m &quot;merge with no-ff&quot; dev</code></font> 因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。</p>
+<h2 id="十四、bug分支"><a href="#十四、bug分支" class="headerlink" title="十四、bug分支"></a>十四、bug分支</h2><p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；当手头工作没有完成时，先把工作现场<font color = red size = 4><code>git stash</code></font>一下，然后去修复bug，修复后，再<font color = red size = 4><code>git stash pop</code></font>，回到工作现场。</p>
+<h2 id="十五、feature分支"><a href="#十五、feature分支" class="headerlink" title="十五、feature分支"></a>十五、feature分支</h2><p>开发一个<font color = red size = 4><code>新feature</code></font>，最好新建一个分支；如果要丢弃一 个没有被合并过的分支，可以通过<font color = red size = 4><code>git branch -D &lt;name&gt;</code></font>强行删除。</p>
+<h2 id="十六、多人协作"><a href="#十六、多人协作" class="headerlink" title="十六、多人协作"></a>十六、多人协作</h2><p>查看远程库信息，使用<font color = red size = 4><code>git remote -v</code></font>；</p>
+<p>本地新建的分支如果不推送到远程，对其他人就是不可见的；</p>
+<p>从本地推送分支，使用<font color = red size = 4><code>git push origin branch-name</code></font>，如果推送失败，先用<font color = red size = 4><code>git pull</code></font>抓取远程的新提交；</p>
+<p>在本地创建和远程分支对应的分支，使用<font color = red size = 4><code>git checkout -b branch-name origin/branch-name</code></font>，本地和远程分支的名称最好一致；</p>
+<p>建立本地分支和远程分支的关联，使用<font color = red size = 4><code>git branch --set-upstream branch-name origin/branch-name</code></font>；</p>
+<p>从远程抓取分支，使用<font color = red size = 4><code>git pull</code></font>，如果有冲突，要先处理冲突。</p>
+<h2 id="十七、创建标签"><a href="#十七、创建标签" class="headerlink" title="十七、创建标签"></a>十七、创建标签</h2><p>命令<font color = red size = 4><code>git tag &lt;tagname&gt;</code></font>用于新建一个标签，默认为HEAD，也可以指定一个<font color = red size = 4><code>commit id</code></font>；</p>
+<p>命令<font color = red size = 4><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code></font>可以指定标签信息；</p>
+<p>命令<font color = red size = 4><code>git tag</code></font>可以查看所有标签</p>
+<p>用命令<font color = red size = 4><code>git show &lt;tagname&gt;</code></font>可以看到说明文字 </p>
+<p>注意：标签总是和某个<font color = red size = 4><code>commit</code></font>挂钩。如果这个<font color = red size = 4><code>commit</code></font>既出现在<font color = red size = 4><code>master</code></font>分支，又出现在<font color = red size = 4><code>dev</code></font>分支，那么在这两个分支上都可以看到这个标签。</p>
+<h2 id="十八、操作标签"><a href="#十八、操作标签" class="headerlink" title="十八、操作标签"></a>十八、操作标签</h2><p>命令<font color = red size = 4><code>git push origin &lt;tagname&gt;</code></font>可以推送一个本地标签；</p>
+<p>命令<font color = red size = 4><code>git push origin --tags</code></font>可以推送全部未推送过的本地标签；</p>
+<p>命令<font color = red size = 4><code>git tag -d &lt;tagname&gt;</code></font>可以删除一个本地标签；</p>
+<p>命令<font color = red size = 4><code>git push origin :refs/tags/&lt;tagname&gt;</code></font>可以删除一个远程标签。<br><strong>最后总结一下Git的常用命令:</strong></p>
+<ul>
+<li><p><code>mkdir</code> XX (创建一个空目录 XX指目录名)</p>
+</li>
+<li><p><code>pwd</code> 显示当前目录的路径。</p>
+</li>
+<li><p><code>git init</code> 把当前的目录变成可以管理的git仓库，生成隐藏.git文件。</p>
+</li>
+<li><p><code>git add XX</code> 把xx文件添加到暂存区去。</p>
+</li>
+<li><p><code>git commit –m “XX”</code> 提交文件 XX是提交的注释。</p>
+</li>
+<li><p><code>git status</code> 查看仓库状态</p>
+</li>
+<li><p><code>git diff XX</code> 查看XX文件修改了那些内容</p>
+</li>
+<li><p><code>git log</code> 查看历史记录</p>
+</li>
+<li><p>git reset –hard HEAD^或者git reset –hard HEAD~</p>
+<p>回退到上一个版本(使用<code>git reset –hard commit_id</code>回退到commit_id的指定版本 )</p>
+</li>
+<li><p><code>cat XX</code> 查看XX文件内容</p>
+</li>
+<li><p><code>git reflog</code> 查看历史记录的版本号id</p>
+</li>
+<li><p><code>git checkout -- XX</code> 把XX文件在工作区的修改全部撤销。</p>
+</li>
+<li><p><code>git rm XX</code> 删除XX文件</p>
+</li>
+<li><p><code>git remote add origin + SSH链接</code>关联一个远程库</p>
+</li>
+<li><p><code>git push –u</code>(第一次要用-u 以后不需要) <code>origin maste</code>r 把当前master分支推送到远程库</p>
+</li>
+<li><p><code>git clone + SSH链接</code> 从远程库中克隆</p>
+</li>
+<li><p><code>git checkout –b dev</code> 创建dev分支 并切换到dev分支上</p>
+</li>
+<li><p><code>git branch</code> 查看当前所有的分支</p>
+</li>
+<li><p><code>git checkout master</code> 切换回master分支</p>
+</li>
+<li><p><code>git merge dev</code> 在当前的分支上合并dev分支</p>
+</li>
+<li><p><code>git branch –d dev</code> 删除dev分支</p>
+</li>
+<li><p><code>git branch name</code> 创建分支</p>
+</li>
+<li><p><code>git fecth</code> 手动拉取远程仓库更新的信息</p>
+</li>
+<li><p><code>git stash</code> 把当前的工作隐藏起来 等以后恢复现场后继续工作</p>
+</li>
+<li><p><code>git stash list</code> 查看所有被隐藏的文件列表</p>
+</li>
+<li><p><code>git stash apply</code> 恢复被隐藏的文件，但是内容不删除</p>
+</li>
+<li><p><code>git stash drop</code> 删除文件</p>
+</li>
+<li><p><code>git stash pop</code> 恢复文件的同时 也删除文件</p>
+</li>
+<li><p><code>git remote</code> 查看远程库的信息</p>
+</li>
+<li><p><code>git remote –v</code> 查看远程库的详细信息</p>
+</li>
+<li><p><code>git push -u origin/master</code> Git将会强制提交到<code>master</code>分支上</p>
+</li>
+<li><p><code>git --amend</code> 简单地来说，可以理解成对最后一次提交做修正。&lt;前提是当前最后一次提交没有<code>merge</code>&gt;</p>
+</li>
+</ul>
+<p><strong>参考文献</strong></p>
+<ol>
+<li>Git教程 - 廖雪峰的官方网站<br><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">https://www.liaoxuefeng.com/wiki/896043488029600</a></li>
+</ol>
+<p>如果你觉得文章还不错，记得”<strong>点赞关注</strong>“</p>
+<p>关注我的微信公众号【 <strong>加班猿</strong> 】可以获取更多内容<br><img src="https://img-blog.csdnimg.cn/202010151010560.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2020/11/01/TCP%20IP%E5%9F%BA%E7%A1%80/">← Prev 小白看了也能懂的TCP/IP基础</a><span style="color: #fe2"> | </span><a href="/2020/11/01/LCD1602%E5%8D%95%E7%89%87%E6%9C%BA%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F(STC51STM32)%E8%AF%A6%E8%A7%A3/">LCD1602单片机(STC51/STM32)驱动程序详解 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><details id="reward"><summary>打赏</summary><div id="alipay"><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div id="wechat"><span>微信 | WeChat</span><br><img src="/img/WeChat.png"></div></details><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: ''
+ , appKey: ''
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a target="_blank" rel="noopener" href="https://github.com/CodingEmbedded"> Dr.hackett</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">6</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">0</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">0</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">git管理文件和代码的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">我工作中常用的指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-number">2.1.</span> <span class="toc-text">一、创建版本库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%88%B0%E4%BB%93%E5%BA%93"><span class="toc-number">2.2.</span> <span class="toc-text">二、添加文件到仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9F%A5%E7%9C%8B%E5%B7%A5%E4%BD%9C%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%AE%E6%94%B9%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">三、查看工作状态和修改的文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81git%E7%9A%84%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80"><span class="toc-number">2.4.</span> <span class="toc-text">四、git的版本回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="toc-number">2.5.</span> <span class="toc-text">五、暂存区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%AE%A1%E7%90%86%E4%BF%AE%E6%94%B9"><span class="toc-number">2.6.</span> <span class="toc-text">六、管理修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%92%A4%E9%94%80%E4%BF%AE%E6%94%B9"><span class="toc-number">2.7.</span> <span class="toc-text">七、撤销修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-number">2.8.</span> <span class="toc-text">八、删除文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E5%BA%93"><span class="toc-number">2.9.</span> <span class="toc-text">九、添加远程库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E4%BB%8E%E8%BF%9C%E7%A8%8B%E5%BA%93%E5%85%8B%E9%9A%86"><span class="toc-number">2.10.</span> <span class="toc-text">十、从远程库克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%86%E6%94%AF%EF%BC%88Git%E9%BC%93%E5%8A%B1%E5%A4%A7%E9%87%8F%E4%BD%BF%E7%94%A8%E5%88%86%E6%94%AF%EF%BC%89"><span class="toc-number">2.11.</span> <span class="toc-text">十一、创建与分支（Git鼓励大量使用分支）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81"><span class="toc-number">2.12.</span> <span class="toc-text">十二、解决冲突</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-number">2.13.</span> <span class="toc-text">十三、分支管理策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81bug%E5%88%86%E6%94%AF"><span class="toc-number">2.14.</span> <span class="toc-text">十四、bug分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%94%E3%80%81feature%E5%88%86%E6%94%AF"><span class="toc-number">2.15.</span> <span class="toc-text">十五、feature分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C"><span class="toc-number">2.16.</span> <span class="toc-text">十六、多人协作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%83%E3%80%81%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE"><span class="toc-number">2.17.</span> <span class="toc-text">十七、创建标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%85%AB%E3%80%81%E6%93%8D%E4%BD%9C%E6%A0%87%E7%AD%BE"><span class="toc-number">2.18.</span> <span class="toc-text">十八、操作标签</span></a></li></ol></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
