@@ -1,14 +1,120 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git的简明使用教程 | 加班猿</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script><script>mermaid.initialize({
-  startOnLoad: true
-  , theme: 'dark'
-});</script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
- font-family: BenderLight;
- src: local('Bender'), url("/font/BenderLight.ttf");
-}
-@font-face {
- font-family: 'JetBrains Mono';
- src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
-}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-10-04T16:00:00.000Z" id="date"> 2020-10-05</time></span><br><span>updated:<time datetime="2020-11-14T14:28:21.669Z" id="updated"> 2020-11-14</time></span></div><h1>Git的简明使用教程</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201014220601139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Git的简明使用教程 | 加班猿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="作者：hackett  微信公众号：加班猿  Git是一个免费的开源 分布式版本控制系统，旨在快速高效地处理从小型到大型项目的所有内容。Git易于学习， 占地面积小，具有闪电般的快速性能。它具有Subversion，CVS，Perforce和ClearCase之类的SCM工具，具有廉价的本地分支，方便的暂存区域和 多个工作流等功能。–《Git官网》 依稀还记得当初写论文的时候，保存的论文文档是这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git的简明使用教程">
+<meta property="og:url" content="http://example.com/2020/10/05/Git%E7%9A%84%E7%AE%80%E6%98%8E%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="加班猿">
+<meta property="og:description" content="作者：hackett  微信公众号：加班猿  Git是一个免费的开源 分布式版本控制系统，旨在快速高效地处理从小型到大型项目的所有内容。Git易于学习， 占地面积小，具有闪电般的快速性能。它具有Subversion，CVS，Perforce和ClearCase之类的SCM工具，具有廉价的本地分支，方便的暂存区域和 多个工作流等功能。–《Git官网》 依稀还记得当初写论文的时候，保存的论文文档是这">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014220601139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/bef9a93e6039da70fc3f78db5cabcefc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/7d2b24243c40e091b365671a54d44ba4.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014222104920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014223036742.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020101423032456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014233850337.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014233904472.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014233919767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014234446419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201014234653420.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/2a89b1a344fe4903932aff01352ce736.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/52b373c8a5bbaf4a1b1e50252b0d402b.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/f9d6df6cefc446fd74c405d791eeb86c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/061d6a6694f862a09e7652f891550fd4.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/bbb5e931a8b878cf4c0aa610964049e8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/225d0dfd5250083799787e900b526bd8.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/5c8df56f54d84a0ba2ce65dbeaf8ac51.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/178a7efd8092aaf235075741df407a5c.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202010151010560.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2020-10-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-11-14T14:28:21.669Z">
+<meta property="article:author" content="hackett">
+<meta property="article:tag" content="work">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201014220601139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center">
+  
+    <link rel="alternate" href="/atom.xml" title="加班猿" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">加班猿</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Git的简明使用教程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/05/Git%E7%9A%84%E7%AE%80%E6%98%8E%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="article-date">
+  <time datetime="2020-10-04T16:00:00.000Z" itemprop="datePublished">2020-10-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Git/">Git</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Git的简明使用教程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://img-blog.csdnimg.cn/20201014220601139.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <div align = 'right'>作者：hackett</div>
 
 <div align = 'right'>微信公众号：加班猿</div>
@@ -191,9 +297,154 @@
 </ol>
 <p>如果你觉得文章还不错，记得”<strong>点赞关注</strong>“</p>
 <p>关注我的微信公众号【 <strong>加班猿</strong> 】可以获取更多内容<br><img src="https://img-blog.csdnimg.cn/202010151010560.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2020/10/20/LCD1602%E5%8D%95%E7%89%87%E6%9C%BA%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F(STC51STM32)%E8%AF%A6%E8%A7%A3/">← Prev LCD1602单片机(STC51/STM32)驱动程序详解</a><span style="color: #fe2"> | </span><a href="/2020/10/03/TCP%20IP%E5%9F%BA%E7%A1%80/">小白看了也能懂的TCP/IP基础 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><details id="reward"><summary>打赏</summary><div id="alipay"><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div id="wechat"><span>微信 | WeChat</span><br><img src="/img/WeChat.png"></div></details><div id="Valine"></div><script>new Valine({
- el: '#Valine'
- , appId: 'Nq5lj4VJyzKxDJIKCQ8wQAWs-gzGzoHsz'
- , appKey: 'RSAaB7CGtQpU2kjI3iFgD7Rz'
- , placeholder: '此条评论委托企鹅物流发送'
-})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a target="_blank" rel="noopener" href="https://github.com/coderhackett"> Dr.hackett</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">9</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">5</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">4</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8C%87%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">我工作中常用的指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-number">1.1.</span> <span class="toc-text">一、创建版本库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%88%B0%E4%BB%93%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">二、添加文件到仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9F%A5%E7%9C%8B%E5%B7%A5%E4%BD%9C%E7%8A%B6%E6%80%81%E5%92%8C%E4%BF%AE%E6%94%B9%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">三、查看工作状态和修改的文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81git%E7%9A%84%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80"><span class="toc-number">1.4.</span> <span class="toc-text">四、git的版本回退</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9A%82%E5%AD%98%E5%8C%BA"><span class="toc-number">1.5.</span> <span class="toc-text">五、暂存区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%AE%A1%E7%90%86%E4%BF%AE%E6%94%B9"><span class="toc-number">1.6.</span> <span class="toc-text">六、管理修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%92%A4%E9%94%80%E4%BF%AE%E6%94%B9"><span class="toc-number">1.7.</span> <span class="toc-text">七、撤销修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-number">1.8.</span> <span class="toc-text">八、删除文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E5%BA%93"><span class="toc-number">1.9.</span> <span class="toc-text">九、添加远程库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E4%BB%8E%E8%BF%9C%E7%A8%8B%E5%BA%93%E5%85%8B%E9%9A%86"><span class="toc-number">1.10.</span> <span class="toc-text">十、从远程库克隆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%86%E6%94%AF%EF%BC%88Git%E9%BC%93%E5%8A%B1%E5%A4%A7%E9%87%8F%E4%BD%BF%E7%94%A8%E5%88%86%E6%94%AF%EF%BC%89"><span class="toc-number">1.11.</span> <span class="toc-text">十一、创建与分支（Git鼓励大量使用分支）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81"><span class="toc-number">1.12.</span> <span class="toc-text">十二、解决冲突</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-number">1.13.</span> <span class="toc-text">十三、分支管理策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81bug%E5%88%86%E6%94%AF"><span class="toc-number">1.14.</span> <span class="toc-text">十四、bug分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%94%E3%80%81feature%E5%88%86%E6%94%AF"><span class="toc-number">1.15.</span> <span class="toc-text">十五、feature分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%85%AD%E3%80%81%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C"><span class="toc-number">1.16.</span> <span class="toc-text">十六、多人协作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%83%E3%80%81%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE"><span class="toc-number">1.17.</span> <span class="toc-text">十七、创建标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%85%AB%E3%80%81%E6%93%8D%E4%BD%9C%E6%A0%87%E7%AD%BE"><span class="toc-number">1.18.</span> <span class="toc-text">十八、操作标签</span></a></li></ol></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/05/Git%E7%9A%84%E7%AE%80%E6%98%8E%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-id="ckhvy6sfc000ry8lrfxyc4qgo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/work/" rel="tag">work</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/20/LCD1602%E5%8D%95%E7%89%87%E6%9C%BA%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F(STC51STM32)%E8%AF%A6%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          LCD1602单片机(STC51/STM32)驱动程序详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/03/TCP%20IP%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">小白看了也能懂的TCP/IP基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">网络通信</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/TCP-IP/" rel="tag">TCP/IP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UI/" rel="tag">UI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/work/" rel="tag">work</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%A9%B1%E5%8A%A8/" rel="tag">驱动</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/TCP-IP/" style="font-size: 10px;">TCP/IP</a> <a href="/tags/UI/" style="font-size: 20px;">UI</a> <a href="/tags/work/" style="font-size: 10px;">work</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 15px;">总结</a> <a href="/tags/%E9%A9%B1%E5%8A%A8/" style="font-size: 10px;">驱动</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/10/Git%E8%80%81%E9%B8%9F%E6%9F%A5%E8%AF%A2%E6%89%8B%E5%86%8C/">Git老鸟查询手册</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/04/Qt%E4%B8%AD%E7%9A%84TCP%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BA%92%E5%8F%91%E6%B6%88%E6%81%AF/">Qt中的TCP服务端和客户端互发消息</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/Qt%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E7%AE%97%E5%99%A8/">Qt实现一个简单的计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/Qt%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E6%A0%87%E5%8A%9F%E8%83%BD/">Qt实现自定义图标功能</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/01/Qt%E6%97%A0%E8%BE%B9%E6%A1%86%E7%AA%97%E5%8F%A3%E6%8B%96%E6%8B%BD%E5%92%8C%E9%98%B4%E5%BD%B1/">Qt无边框窗口拖拽和阴影</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 hackett<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
