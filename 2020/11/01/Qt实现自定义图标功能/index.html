@@ -8,7 +8,7 @@
 @font-face {
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
-}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-10-31T16:00:00.000Z" id="date"> 2020-11-01</time></span><br><span>updated:<time datetime="2020-11-14T14:03:14.476Z" id="updated"> 2020-11-14</time></span></div><h1>Qt实现自定义图标功能</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-10-31T16:00:00.000Z" id="date"> 2020-11-01</time></span><br><span>updated:<time datetime="2020-11-24T15:30:14.355Z" id="updated"> 2020-11-24</time></span></div><h1>Qt实现自定义图标功能</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <div align = 'right'>作者：hackett</div>
 
 <div align = 'right'>微信公众号：加班猿</div>
@@ -18,15 +18,15 @@
 <p>在上一节的基础上进行定义图标的功能</p>
 <p>参考上一节的链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/hackettt/p/13916513.html">Qt无边框窗口拖拽和阴影</a></p>
 <p>效果：要做的是应用的放大缩小、最小化功能，鼠标移动和点击图标变色</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201104193647.gif"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201104193647.gif"></p>
 <h2 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h2><h3 id="控件："><a href="#控件：" class="headerlink" title="控件："></a>控件：</h3><p>3个PushButton</p>
 <p>1个Label</p>
 <p>1个Frame</p>
 <p><strong>注意：需要进行布局，如果不布局可能会出现不能放大缩小的情况</strong></p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201104194259.png" alt="image-20201104194259480"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201104194259.png" alt="image-20201104194259480"></p>
 <h3 id="准备图标嵌入控件"><a href="#准备图标嵌入控件" class="headerlink" title="准备图标嵌入控件"></a>准备图标嵌入控件</h3><p>可以上<a target="_blank" rel="noopener" href="https://www.iconfont.cn/">阿里巴巴矢量图标库</a>下载自己想要的图标，也可以去其他网站或者自己制作</p>
 <p>我这里下载了三个图标</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201104195241.png" alt="image-20201104195241416"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201104195241.png" alt="image-20201104195241416"></p>
 <h3 id="QSS样式表"><a href="#QSS样式表" class="headerlink" title="QSS样式表"></a>QSS样式表</h3><p>右键选择改变样式表，其他按键同理</p>
 <p>添加颜色：</p>
 <p>QPushButton为改变这个按钮的属性</p>
@@ -34,14 +34,14 @@
 <p>QPushButton:pressed为鼠标按下按键的效果</p>
 <p>添加资源：</p>
 <p>可以选择我们资源里面的图片为按键填充图片</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201104201329.gif"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201104201329.gif"></p>
 <p>接下来就可以链接到槽函数做相应的处理即可</p>
 <p><strong>放大缩小按钮需要做下margin值的设置</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Widget::on_buttonMax_clicked</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>-&gt;isMaximized())<span class="hljs-comment">//是否已经最大</span><br>    &#123;<br>        ui-&gt;vLayout-&gt;setMargin(<span class="hljs-number">9</span>);  <span class="hljs-comment">//对应widget布局的Margin值</span><br>        <span class="hljs-keyword">this</span>-&gt;showNormal();<br>    &#125;<span class="hljs-keyword">else</span><br>    &#123;<br>        ui-&gt;vLayout-&gt;setMargin(<span class="hljs-number">0</span>); <span class="hljs-comment">//全屏时widget布局的Margin值为0</span><br>        <span class="hljs-keyword">this</span>-&gt;showMaximized();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201104201038.png" alt="image-20201104201038634"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201104201038.png" alt="image-20201104201038634"></p>
 <h2 id="源码："><a href="#源码：" class="headerlink" title="源码："></a>源码：</h2><p>main.cpp</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;widget.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;QApplication&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">QApplication <span class="hljs-title">a</span><span class="hljs-params">(argc, argv)</span></span>;<br>    Widget w;<br>    w.show();<br><br>    <span class="hljs-keyword">return</span> a.exec();<br>&#125;<br><br></code></pre></td></tr></table></figure>
 

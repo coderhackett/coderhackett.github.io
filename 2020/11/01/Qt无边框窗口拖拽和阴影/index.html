@@ -8,7 +8,7 @@
 @font-face {
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
-}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-10-31T16:00:00.000Z" id="date"> 2020-11-01</time></span><br><span>updated:<time datetime="2020-11-14T14:03:05.101Z" id="updated"> 2020-11-14</time></span></div><h1>Qt无边框窗口拖拽和阴影</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2020-10-31T16:00:00.000Z" id="date"> 2020-11-01</time></span><br><span>updated:<time datetime="2020-11-24T15:30:37.716Z" id="updated"> 2020-11-24</time></span></div><h1>Qt无边框窗口拖拽和阴影</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <div align = 'right'>作者：hackett</div>
 
 <div align = 'right'>微信公众号：加班猿</div>
@@ -18,26 +18,26 @@
 <h2 id="无边框窗口的实现"><a href="#无边框窗口的实现" class="headerlink" title="无边框窗口的实现"></a>无边框窗口的实现</h2><p>只需要一行代码即可实现</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">this</span>-&gt;setWindowFlags(Qt::FramelessWindowHint);<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201102191116.png" alt="image-20201102191116019"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201102191116.png" alt="image-20201102191116019"></p>
 <p>代码及运行效果：</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201102191341.png" alt="image-20201102191340908"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201102191341.png" alt="image-20201102191340908"></p>
 <h2 id="无边框窗口能拖拽实现"><a href="#无边框窗口能拖拽实现" class="headerlink" title="无边框窗口能拖拽实现"></a>无边框窗口能拖拽实现</h2><p>先要去QWidget里面找到<strong>鼠标事件</strong>函数</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201102192216.png" alt="image-20201102192216514"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201102192216.png" alt="image-20201102192216514"></p>
 <p>理一下<strong>坐标的位置</strong>情况：</p>
 <p>左上角：屏幕的左上角</p>
 <p>中间的窗口：程序的窗口</p>
 <p>箭头：鼠标位置</p>
 <p>坐标位置满足：<strong>x = y - z</strong></p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201102193018.png" alt="image-20201102193018846"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201102193018.png" alt="image-20201102193018846"></p>
 <p>在Designer里面拖一个Widget出来叫shadowWidget</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201102195257.png" alt="image-20201102195257871"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201102195257.png" alt="image-20201102195257871"></p>
 <p>shadowWidget的颜色为灰色，我们选个自己喜欢的背景色方便查看</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201102200730.png" alt="image-20201102200730118"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201102200730.png" alt="image-20201102200730118"></p>
 <p>接下来我们要重写鼠标事件函数才能让拖拽功能生效</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Widget::mouseMoveEvent</span><span class="hljs-params">(QMouseEvent *event)</span></span><br><span class="hljs-function"></span>&#123;<br>    QPoint y = event-&gt;globalPos();<span class="hljs-comment">//鼠标相当于桌面左上角的位置，鼠标全局位置</span><br>    QPoint x = y - <span class="hljs-keyword">this</span>-&gt;z;<br>    <span class="hljs-keyword">this</span>-&gt;move(x);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Widget::mousePressEvent</span><span class="hljs-params">(QMouseEvent *event)</span></span><br><span class="hljs-function"></span>&#123;<br>    QPoint y = event-&gt;globalPos();<span class="hljs-comment">//鼠标相当于桌面左上角的位置，鼠标全局位置</span><br>    QPoint x = <span class="hljs-keyword">this</span>-&gt;geometry().topLeft();<span class="hljs-comment">//窗口左上角位于桌面左上角的位置，窗口位置</span><br>    <span class="hljs-keyword">this</span>-&gt;z = y - x; <span class="hljs-comment">//定值，不变</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Widget::mouseReleaseEvent</span><span class="hljs-params">(QMouseEvent *event)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">this</span>-&gt;z = QPoint(); <span class="hljs-comment">//鼠标松开获取当前的坐标</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>最终效果变为鼠标可拖动的窗口：</p>
-<p><img src="https://gitee.com/hackett_h/typoraimg/raw/master/image/20201102201327.png" alt="image-20201102201326910"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20201102201327.png" alt="image-20201102201326910"></p>
 <p>源码：</p>
 <p>main.cpp</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;widget.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;QApplication&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-function">QApplication <span class="hljs-title">a</span><span class="hljs-params">(argc, argv)</span></span>;<br>    Widget w;<br>    w.show();<br><br>    <span class="hljs-keyword">return</span> a.exec();<br>&#125;<br></code></pre></td></tr></table></figure>
