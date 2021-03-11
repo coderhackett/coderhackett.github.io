@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>C++核心编程 | 加班猿</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script><script>mermaid.initialize({
+  startOnLoad: true
+  , theme: 'dark'
+});</script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2021-03-10T16:00:00.000Z" id="date"> 2021-03-11</time></span><br><span>updated:<time datetime="2021-03-11T12:43:27.594Z" id="updated"> 2021-03-11</time></span></div><h1>C++核心编程</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div align = 'right'>作者：hackett</div>
+
+<div align = 'right'>微信公众号：加班猿</div>
+
+<h2 id="内存分布模型"><a href="#内存分布模型" class="headerlink" title="内存分布模型"></a>内存分布模型</h2><ol>
+<li><p> ​    堆区：new/delete，由程序员分配和释放，若程序员不释放，程序结束由操作系统回收</p>
+</li>
+<li><p> ​    栈区：存放函数的参数值，局部变量等；由编译器自动分配释放</p>
+</li>
+<li><p> ​    静态存储区：存放全局静态变量、局部静态变量、全局变量以及虚函数表</p>
+</li>
+<li><p> ​    常量存储区：全局常量、函数指针、常量数组、对函数指针</p>
+</li>
+<li><p> ​    代码区：存放函数体的二进制代码</p>
+</li>
+</ol>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ol>
+<li><p> ​    必须初始化，初始化后不可改变</p>
+</li>
+<li><p> ​    常量引用修饰形参</p>
+</li>
+<li><p> ​    本质是一个指针常量</p>
+</li>
+</ol>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol>
+<li><p> ​    默认参数（语法：返回值类型 函数名 （参数 = 默认值）{}）</p>
+</li>
+<li><p> ​    函数占位参数（语法：返回值类型 函数名 （数据类型））</p>
+</li>
+<li><p> ​    函数重载：</p>
+</li>
+</ol>
+<ul>
+<li><p>  ​        同一作用域下</p>
+</li>
+<li><p>  ​        函数名相同</p>
+</li>
+<li><p>  ​        函数参数类型不同/个数不同/顺序不同</p>
+</li>
+</ul>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>​    可以有参数，因此可以发生重载</p>
+<p>​    调用对象时自动调用构造，无需手动调用，而且只会调用一次</p>
+<h3 id="调用规则"><a href="#调用规则" class="headerlink" title="调用规则"></a>调用规则</h3><p>​        如果用户定义有参构造函数，c++不在提供默认无参构造，但是会提供默认拷贝构造 </p>
+<p>​        如果用户定义拷贝构造函数，c++不会再提供其他构造函数</p>
+<h2 id="虚析构和纯虚析构"><a href="#虚析构和纯虚析构" class="headerlink" title="虚析构和纯虚析构"></a>虚析构和纯虚析构</h2><h3 id="虚析构"><a href="#虚析构" class="headerlink" title="虚析构"></a>虚析构</h3><p>​        语法：virtual ~类名(){}</p>
+<h3 id="纯虚析构"><a href="#纯虚析构" class="headerlink" title="纯虚析构"></a>纯虚析构</h3><p>​        语法：virtual ~类名() = 0; 抽象类，无法实例化对象</p>
+<h3 id="共性"><a href="#共性" class="headerlink" title="共性"></a>共性</h3><p>​        解决父类指针释放子类对象</p>
+<p>​        都需要有具体的函数实现</p>
+<h2 id="深-浅拷贝"><a href="#深-浅拷贝" class="headerlink" title="深/浅拷贝"></a>深/浅拷贝</h2><p>​    浅拷贝：简单的复制拷贝操作</p>
+<p>​    深拷贝：在堆区重新申请内存，进行拷贝操作；属性有在堆区开辟的，一定要自己提供拷贝构造函数，防止浅拷贝带来的重复释放堆区问题</p>
+<h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><p>​    语法：构造函数（）：属性1（值1），属性2（值2），属性3（值3）…</p>
+<h2 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h2><h3 id="静态成员变量"><a href="#静态成员变量" class="headerlink" title="静态成员变量"></a>静态成员变量</h3><p>​        所有对象共享同一份数据</p>
+<p>​        在编译阶段分配内存</p>
+<p>​        类内声明，类外初始化</p>
+<h3 id="静态成员函数"><a href="#静态成员函数" class="headerlink" title="静态成员函数"></a>静态成员函数</h3><p>​        所有对象共享一个函数</p>
+<p>​        静态成员函数只能访问静态成员变量</p>
+<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>​        this指针指向被调用的成员函数所属的对象</p>
+<p>​        this指针是隐含每一个非静态成员函数内的一种指针</p>
+<h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p>​        形参和成员变量同名时，可以用this指针来区分</p>
+<p>​        在类的非静态成员函数中返回对象本身，可使用return *this</p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="常函数"><a href="#常函数" class="headerlink" title="常函数"></a>常函数</h3><p>​        const在成员函数后：void func() const{}</p>
+<p>​        常函数内不可以修改成员属性</p>
+<p>​        成员属性声明前加mutable关键字，在常函数中依然可修改</p>
+<h3 id="常对象"><a href="#常对象" class="headerlink" title="常对象"></a>常对象</h3><p>​        const在声明对象前</p>
+<p>​        常对象只能调用常函数</p>
+<h2 id="友元friend"><a href="#友元friend" class="headerlink" title="友元friend"></a>友元friend</h2><h3 id="作用：让一个类或者函数访问另一个类中的私有成员"><a href="#作用：让一个类或者函数访问另一个类中的私有成员" class="headerlink" title="作用：让一个类或者函数访问另一个类中的私有成员"></a>作用：让一个类或者函数访问另一个类中的私有成员</h3><p>​        全局函数</p>
+<p>​        类</p>
+<p>​        成员函数</p>
+<h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h2><h3 id="加号"><a href="#加号" class="headerlink" title="加号"></a>加号</h3><p>​        实现两个自定义数据类型相加</p>
+<h3 id="左移"><a href="#左移" class="headerlink" title="左移"></a>左移</h3><p>​        可以输出自定义数据类型（配合友元）</p>
+<h3 id="递增"><a href="#递增" class="headerlink" title="递增"></a>递增</h3><p>​        实现自己的整型数据（前置递增返回引用，后置递增返回值）</p>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>​        类中有属性指向堆区，做赋值操作时也会出现深浅拷贝问题</p>
+<h3 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h3><p>​        让两个自定义数据类型对象进行对比操作</p>
+<h3 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h3><p>​        使用方式非常像函数的调用，因此称为仿函数，没有固定写法，非常灵活</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h3 id="继承方式"><a href="#继承方式" class="headerlink" title="继承方式"></a>继承方式</h3><p>​        public</p>
+<p>​            继承下来的成员属性保持不变</p>
+<p>​        protected</p>
+<p>​            继承下来的成员属性变为protected</p>
+<p>​        private</p>
+<p>​            继承下来的成员属性变为private</p>
+<h3 id="对象模型"><a href="#对象模型" class="headerlink" title="对象模型"></a>对象模型</h3><p>​        父类私有成员被子类继承下来，被编译器隐藏后访问不到</p>
+<h3 id="构造和析构顺序"><a href="#构造和析构顺序" class="headerlink" title="构造和析构顺序"></a>构造和析构顺序</h3><p>​        先调用父类的构造函数，再调用子类的构造函数，析构是先调用子类的析构函数，再调用父类的析构函数</p>
+<h3 id="同名成员-静态成员处理"><a href="#同名成员-静态成员处理" class="headerlink" title="同名成员/静态成员处理"></a>同名成员/静态成员处理</h3><p>​        访问子类：直接访问</p>
+<p>​        访问父类：加作用域</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><h3 id="满足条件"><a href="#满足条件" class="headerlink" title="满足条件"></a>满足条件</h3><p>​        有继承关系</p>
+<p>​        子类重写父类中的虚函数</p>
+<h3 id="静态多态"><a href="#静态多态" class="headerlink" title="静态多态"></a>静态多态</h3><p>​        函数重载和运算符重载属于静态多态，复用函数名</p>
+<p>​        函数地址早绑定 – 编译阶段确定函数地址</p>
+<h3 id="动态多态"><a href="#动态多态" class="headerlink" title="动态多态"></a>动态多态</h3><p>​        派生类和虚函数实现运行时多态</p>
+<p>​        函数地址晚绑定 – 运行阶段确定函数地址</p>
+<h3 id="使用条件"><a href="#使用条件" class="headerlink" title="使用条件"></a>使用条件</h3><p>​        使用 父类指针/引用 指向子类对象，不能使用对象</p>
+<h2 id="纯虚函数和抽象类"><a href="#纯虚函数和抽象类" class="headerlink" title="纯虚函数和抽象类"></a>纯虚函数和抽象类</h2><p>​    语法：virtual  返回值类型 函数名 （参数列表） = 0</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>​        无法实例化对象</p>
+<p>​        子类必须重写抽象类中的纯虚函数，否则也属于抽象类</p>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="文本文件"><a href="#文本文件" class="headerlink" title="文本文件"></a>文本文件</h3><p>​        写文件：ofstream或者fstream类</p>
+<p>​        读文件：ifstream或者fstream类</p>
+<h3 id="二进制文件"><a href="#二进制文件" class="headerlink" title="二进制文件"></a>二进制文件</h3><p>​        写文件：ostream&amp; write(const char * buffer,int len);</p>
+<p>​        读文件：istream&amp; read(char *buffer,int len);</p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><h3 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h3><p>​        作用：建立一个通用函数，函数的返回值类型和形参类型可以不具体制定，用虚拟的类型来表示</p>
+<p>​        语法：template<typename T>函数声明或定义</p>
+<h4 id="调用规则-1"><a href="#调用规则-1" class="headerlink" title="调用规则"></a>调用规则</h4><p>​            如果函数模板和普通函数都可以实现，优先调用普通函数</p>
+<p>​            如果函数模板可以产生更好的匹配,优先调用函数模板</p>
+<p>​            可以通过空模板参数列表来强制调用函数模板</p>
+<p>​            函数模板也可以发生重载</p>
+<h3 id="类-模板"><a href="#类-模板" class="headerlink" title="类  模板"></a>类  模板</h3><p>​        作用：建立一个通用函数，类中的成员数据类型可以不具体制定，用虚拟的类型来表示</p>
+<p>​        语法：template<typename T>类</p>
+<h4 id="创建时机"><a href="#创建时机" class="headerlink" title="创建时机"></a>创建时机</h4><p>​            普通类中的成员函数一开始就可以创建</p>
+<p>​            类模板中的成员函数在调用时才创建</p>
+<p>如果你觉得文章还不错，记得”<strong>点赞关注</strong>“</p>
+<p>关注我的微信公众号【 <strong>加班猿</strong> 】可以获取更多内容</p>
+<p><img src="https://img-blog.csdnimg.cn/20201029203206698.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/01/06/redis%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">Redis基本操作 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><details id="reward"><summary>打赏</summary><div id="alipay"><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div id="wechat"><span>微信 | WeChat</span><br><img src="/img/WeChat.png"></div></details><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: 'Nq5lj4VJyzKxDJIKCQ8wQAWs-gzGzoHsz'
+ , appKey: 'RSAaB7CGtQpU2kjI3iFgD7Rz'
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a target="_blank" rel="noopener" href="https://github.com/coderhackett"> Dr.hackett</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">14</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">9</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">8</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E5%B8%83%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">内存分布模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">4.</span> <span class="toc-text">构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E8%A7%84%E5%88%99"><span class="toc-number">4.1.</span> <span class="toc-text">调用规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%9E%90%E6%9E%84%E5%92%8C%E7%BA%AF%E8%99%9A%E6%9E%90%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">虚析构和纯虚析构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%9E%90%E6%9E%84"><span class="toc-number">5.1.</span> <span class="toc-text">虚析构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%AF%E8%99%9A%E6%9E%90%E6%9E%84"><span class="toc-number">5.2.</span> <span class="toc-text">纯虚析构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B1%E6%80%A7"><span class="toc-number">5.3.</span> <span class="toc-text">共性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1-%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="toc-number">6.</span> <span class="toc-text">深&#x2F;浅拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8"><span class="toc-number">6.1.</span> <span class="toc-text">初始化列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="toc-number">7.</span> <span class="toc-text">静态成员</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="toc-number">7.1.</span> <span class="toc-text">静态成员变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-number">7.2.</span> <span class="toc-text">静态成员函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#this%E6%8C%87%E9%92%88"><span class="toc-number">8.</span> <span class="toc-text">this指针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">8.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E9%80%94"><span class="toc-number">8.2.</span> <span class="toc-text">用途</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#const"><span class="toc-number">9.</span> <span class="toc-text">const</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E5%87%BD%E6%95%B0"><span class="toc-number">9.1.</span> <span class="toc-text">常函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E5%AF%B9%E8%B1%A1"><span class="toc-number">9.2.</span> <span class="toc-text">常对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8B%E5%85%83friend"><span class="toc-number">10.</span> <span class="toc-text">友元friend</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%EF%BC%9A%E8%AE%A9%E4%B8%80%E4%B8%AA%E7%B1%BB%E6%88%96%E8%80%85%E5%87%BD%E6%95%B0%E8%AE%BF%E9%97%AE%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%B8%AD%E7%9A%84%E7%A7%81%E6%9C%89%E6%88%90%E5%91%98"><span class="toc-number">10.1.</span> <span class="toc-text">作用：让一个类或者函数访问另一个类中的私有成员</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-number">11.</span> <span class="toc-text">运算符重载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%8F%B7"><span class="toc-number">11.1.</span> <span class="toc-text">加号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E7%A7%BB"><span class="toc-number">11.2.</span> <span class="toc-text">左移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%A2%9E"><span class="toc-number">11.3.</span> <span class="toc-text">递增</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC"><span class="toc-number">11.4.</span> <span class="toc-text">赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB"><span class="toc-number">11.5.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-number">11.6.</span> <span class="toc-text">函数调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">12.</span> <span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E6%96%B9%E5%BC%8F"><span class="toc-number">12.1.</span> <span class="toc-text">继承方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B"><span class="toc-number">12.2.</span> <span class="toc-text">对象模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E9%A1%BA%E5%BA%8F"><span class="toc-number">12.3.</span> <span class="toc-text">构造和析构顺序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E5%90%8D%E6%88%90%E5%91%98-%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%A4%84%E7%90%86"><span class="toc-number">12.4.</span> <span class="toc-text">同名成员&#x2F;静态成员处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">13.</span> <span class="toc-text">多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6"><span class="toc-number">13.1.</span> <span class="toc-text">满足条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%A4%9A%E6%80%81"><span class="toc-number">13.2.</span> <span class="toc-text">静态多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%A4%9A%E6%80%81"><span class="toc-number">13.3.</span> <span class="toc-text">动态多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%9D%A1%E4%BB%B6"><span class="toc-number">13.4.</span> <span class="toc-text">使用条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="toc-number">14.</span> <span class="toc-text">纯虚函数和抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-number">14.1.</span> <span class="toc-text">特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-number">15.</span> <span class="toc-text">文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="toc-number">15.1.</span> <span class="toc-text">文本文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-number">15.2.</span> <span class="toc-text">二进制文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-number">16.</span> <span class="toc-text">模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="toc-number">16.1.</span> <span class="toc-text">函数模板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E8%A7%84%E5%88%99-1"><span class="toc-number">16.1.1.</span> <span class="toc-text">调用规则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB-%E6%A8%A1%E6%9D%BF"><span class="toc-number">16.2.</span> <span class="toc-text">类  模板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%97%B6%E6%9C%BA"><span class="toc-number">16.2.1.</span> <span class="toc-text">创建时机</span></a></li></ol></li></ol></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
