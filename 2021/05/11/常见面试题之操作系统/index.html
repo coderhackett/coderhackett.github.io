@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>常见面试题之操作系统 | 加班猿</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script><script>mermaid.initialize({
+  startOnLoad: true
+  , theme: 'dark'
+});</script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2021-05-10T16:00:00.000Z" id="date"> 2021-05-11</time></span><br><span>updated:<time datetime="2021-07-02T11:44:30.927Z" id="updated"> 2021-07-02</time></span></div><h1>常见面试题之操作系统</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div align = 'right'>作者：hackett</div>
+
+<div align = 'right'>微信公众号：加班猿</div>
+
+
+<h3 id="1-请你说一下进程与线程的概念，以及为什么要有进程线程，其中有什么区别，他们各自又是怎么同步的"><a href="#1-请你说一下进程与线程的概念，以及为什么要有进程线程，其中有什么区别，他们各自又是怎么同步的" class="headerlink" title="1 请你说一下进程与线程的概念，以及为什么要有进程线程，其中有什么区别，他们各自又是怎么同步的"></a>1 请你说一下进程与线程的概念，以及为什么要有进程线程，其中有什么区别，他们各自又是怎么同步的</h3><p>基本概念：</p>
+<p>进程是对运行时程序的封装，是系统进行资源调度和分配的的基本单位，实现了操作系统的并发；</p>
+<p>线程是进程的子任务，是CPU调度和分派的基本单位，用于保证程序的实时性，实现进程内部的并发；线程是操作系统可识别的最小执行和调度单位。</p>
+<p>区别：</p>
+<p>1.<strong>一个线程只能属于一个进程，而一个进程可以有多个线程，但至少有一个线程</strong>。线程依赖于进程而存在。</p>
+<p>2.<strong>进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存</strong>。（资源分配给进程，同一进程的所有线程共享该进程的所有资源。同一进程中的多个线程共享代码段（代码和常量），数据段（全局变量和静态变量），扩展段（堆存储）。但是每个线程拥有自己的栈段，栈段又叫运行时段，用来存放所有局部变量和临时变量。）</p>
+<p>3.进程是资源分配的最小单位，线程是CPU调度的最小单位；</p>
+<p>4.系统开销： 由于在创建或撤消进程时，系统都要为之分配或回收资源，如内存空间、I／o设备等。因此，操作系统所付出的开销将显著地大于在创建或撤消线程时的开销。类似地，在进行进程切换时，涉及到整个当前进程CPU环境的保存以及新被调度运行的进程的CPU环境的设置。而线程切换只须保存和设置少量寄存器的内容，并不涉及存储器管理方面的操作。可见，<strong>进程切换的开销也远大于线程切换的开销</strong>。</p>
+<p>5.通信：<strong>由于同一进程中的多个线程具有相同的地址空间，致使它们之间的同步和通信的实现</strong>，也变得比较容易。进程间通信IPC，线程间可以直接读写进程数据段（如全局变量）来进行通信——需要进程同步和互斥手段的辅助，以保证数据的一致性。在有的系统中，线程的切换、同步和通信都无须操作系统内核的干预</p>
+<p>6.进程编程调试简单可靠性高，但是创建销毁开销大；线程正相反，开销小，切换速度快，但是编程调试相对复杂。</p>
+<p>7.进程间不会相互影响 ；线程一个线程挂掉将导致整个进程挂掉</p>
+<p>8.进程适应于多核、多机分布；线程适用于多核</p>
+<p><strong>进程间通信：</strong></p>
+<ol>
+<li> 管道（是一个内核缓冲区，进程以先进先出从缓冲区存取数据）</li>
+<li> 命名管道FIFO（对应一个磁盘索引节点，任何进程都可以访问）</li>
+<li> 消息队列（对每个消息指定特定的数据类型，可以根据自定义条件接收特定类型的消息）</li>
+<li> 共享内存（效率高，直接读写内存，不需要数据的拷贝）</li>
+<li> 信号量（原子操作，传递数据需要结合共享内存）</li>
+<li> 套接字socket（用于不同机器间的进程通信）</li>
+<li> 信号（用于通知接收进程的某个事件已经发生）</li>
+</ol>
+<h3 id="2-请问MySQL的端口号是多少，如何修改这个端口号"><a href="#2-请问MySQL的端口号是多少，如何修改这个端口号" class="headerlink" title="2 请问MySQL的端口号是多少，如何修改这个端口号"></a>2 请问MySQL的端口号是多少，如何修改这个端口号</h3><p>查看端口号：</p>
+<p>使用命令show global variables like ‘port’;查看端口号 ，mysql的默认端口是3306</p>
+<p>修改端口号：</p>
+<p>修改端口号：编辑/etc/my.cnf文件</p>
+<h3 id="3-请你说一说有了进程，为什么还要有线程？"><a href="#3-请你说一说有了进程，为什么还要有线程？" class="headerlink" title="3 请你说一说有了进程，为什么还要有线程？"></a>3 请你说一说有了进程，为什么还要有线程？</h3><p>线程产生的原因：</p>
+<p>进程可以使多个程序能并发执行，以提高资源的利用率和系统的吞吐量；但是其具有一些缺点：</p>
+<p>进程在同一时间只能干一件事</p>
+<p>进程在执行的过程中如果阻塞，整个进程就会挂起，即使进程中有些工作不依赖于等待的资源，仍然不会执行。</p>
+<p>和进程相比，线程的优势如下：</p>
+<p><strong>从资源上来讲，线程是一种非常”节俭”的多任务操作方式</strong>。在linux系统下，启动一个新的进程必须分配给它独立的地址空间，建立众多的数据表来维护它的代码段、堆栈段和数据段，这是一种”昂贵”的多任务工作方式。</p>
+<p><strong>从切换效率上来讲，运行于一个进程中的多个线程，它们之间使用相同的地址空间，而且线程间彼此切换所需时间也远远小于进程间切换所需要的时间</strong>。据统计，一个进程的开销大约是一个线程开销的30倍左右。</p>
+<p><strong>从通信机制上来讲，线程间方便的通信机制</strong>。对不同进程来说，它们具有独立的数据空间，要进行数据的传递只能通过进程间通信的方式进行，这种方式不仅费时，而且很不方便。线程则不然，由于同一进城下的线程之间贡献数据空间，所以一个线程的数据可以直接为其他线程所用，这不仅快捷，而且方便。</p>
+<p>除以上优点外，多线程程序作为一种多任务、并发的工作方式，还有如下优点：</p>
+<p>1、使多CPU系统更加有效。操作系统会保证当线程数不大于CPU数目时，不同的线程运行于不同的CPU上。</p>
+<p>2、改善程序结构。一个既长又复杂的进程可以考虑分为多个线程，成为几个独立或半独立的运行部分，这样的程序才会利于理解和修改。</p>
+<h3 id="4-请问单核机器上写多线程程序，是否需要考虑加锁，为什么？"><a href="#4-请问单核机器上写多线程程序，是否需要考虑加锁，为什么？" class="headerlink" title="4 请问单核机器上写多线程程序，是否需要考虑加锁，为什么？"></a>4 请问单核机器上写多线程程序，是否需要考虑加锁，为什么？</h3><p>在单核机器上写多线程程序，仍然需要线程锁。因为线程锁通常用来实现线程的同步和通信。在单核机器上的多线程程序，<strong>仍然存在线程同步的问题</strong></p>
+<h3 id="5-请你说一说线程间的同步方式，最好说出具体的系统调用"><a href="#5-请你说一说线程间的同步方式，最好说出具体的系统调用" class="headerlink" title="5 请你说一说线程间的同步方式，最好说出具体的系统调用"></a>5 请你说一说线程间的同步方式，最好说出具体的系统调用</h3><p>信号量</p>
+<p>信号量是一种特殊的变量，可<strong>用于线程同步。它只取自然数值</strong>，并且只支持两种操作：</p>
+<p>P(SV):如果信号量SV大于0，将它减一；如果SV值为0，则挂起该线程。</p>
+<p>V(SV)：如果有其他进程因为等待SV而挂起，则唤醒，然后将SV+1；否则直接将SV+1。</p>
+<p>其系统调用为：</p>
+<p>sem_wait（sem_t *sem）：以原子操作的方式将信号量减1，如果信号量值为0，则sem_wait将被阻塞，直到这个信号量具有非0值。</p>
+<p>sem_post（sem_t *sem)：以原子操作将信号量值+1。当信号量大于0时，其他正在调用sem_wait等待信号量的线程将被唤醒。</p>
+<p>互斥量</p>
+<p>互斥量又称互斥锁，主要用于线程互斥，不能保证按序访问，可以和条件锁一起实现同步。<strong>当进入临界区 时，需要获得互斥锁并且加锁；当离开临界区时，需要对互斥锁解锁，以唤醒其他等待该互斥锁的线程</strong>。其主要的系统调用如下：</p>
+<p>pthread_mutex_init:初始化互斥锁</p>
+<p>pthread_mutex_destroy：销毁互斥锁</p>
+<p>pthread_mutex_lock：以原子操作的方式给一个互斥锁加锁，如果目标互斥锁已经被上锁，pthread_mutex_lock调用将阻塞，直到该互斥锁的占有者将其解锁。</p>
+<p>pthread_mutex_unlock:以一个原子操作的方式给一个互斥锁解锁。</p>
+<p>条件变量</p>
+<p>条件变量，又称条件锁，<strong>用于在线程之间同步共享数据的值</strong>。条件变量提供一种线程间通信机制：当某个共享数据达到某个值时，唤醒等待这个共享数据的一个/多个线程。即，当某个共享变量等于某个值时，调用 signal/broadcast。此时操作共享变量时需要加锁。其主要的系统调用如下：</p>
+<p>pthread_cond_init:初始化条件变量</p>
+<p>pthread_cond_destroy：销毁条件变量</p>
+<p>pthread_cond_signal：唤醒一个等待目标条件变量的线程。哪个线程被唤醒取决于调度策略和优先级。</p>
+<p>pthread_cond_wait：等待目标条件变量。需要一个加锁的互斥锁确保操作的原子性。该函数中在进入wait状态前首先进行解锁，然后接收到信号后会再加锁，保证该线程对共享资源正确访问。</p>
+<h3 id="6-游戏服务器应该为每个用户开辟一个线程还是一个进程，为什么？"><a href="#6-游戏服务器应该为每个用户开辟一个线程还是一个进程，为什么？" class="headerlink" title="6 游戏服务器应该为每个用户开辟一个线程还是一个进程，为什么？"></a>6 游戏服务器应该为每个用户开辟一个线程还是一个进程，为什么？</h3><p>游戏服务器应该为每个用户开辟一个进程。因为<strong>同一进程间的线程会相互影响</strong>，<strong>一个线程死掉会影响其他线程，从而导致进程崩溃</strong></p>
+<h3 id="7-请你说一说操作系统中的结构体对齐，字节对齐"><a href="#7-请你说一说操作系统中的结构体对齐，字节对齐" class="headerlink" title="7 请你说一说操作系统中的结构体对齐，字节对齐"></a>7 请你说一说操作系统中的结构体对齐，字节对齐</h3><p>1、原因：</p>
+<p>1）平台原因（移植原因）：不是所有的硬件平台都能访问任意地址上的任意数据的；某些硬件平台只能在某些地址处取某些特定类型的数据，否则抛出硬件异常。</p>
+<p>2）性能原因：数据结构（尤其是栈）应该尽可能地在自然边界上对齐。原因在于，为了访问未对齐的内存，处理器需要作两次内存访问；而对齐的内存访问仅需要一次访问。</p>
+<p>2、规则：</p>
+<p>1）数据成员对齐规则：结构(struct)(或联合(union))的数据成员，第一个数据成员放在offset为0的地方，以后每个数据成员的对齐按照#pragma pack指定的数值和这个数据成员自身长度中，比较小的那个进行。</p>
+<p>2）结构(或联合)的整体对齐规则：在数据成员完成各自对齐之后，结构(或联合)本身也要进行对齐，对齐将按照#pragma pack指定的数值和结构(或联合)最大数据成员长度中，比较小的那个进行。</p>
+<p>3）结构体作为成员：如果一个结构里有某些结构体成员，则结构体成员要从其内部最大元素大小的整数倍地址开始存储。</p>
+<p>3、定义结构体对齐：</p>
+<p>可以通过预编译命令#pragma pack(n)，n=1,2,4,8,16来改变这一系数，其中的n就是指定的“对齐系数”。</p>
+<h3 id="8-请你回答一下静态变量什么时候初始化"><a href="#8-请你回答一下静态变量什么时候初始化" class="headerlink" title="8 请你回答一下静态变量什么时候初始化"></a>8 请你回答一下静态变量什么时候初始化</h3><p>静态变量存储在虚拟地址空间的数据段和bss段</p>
+<p>C语言中其在代码执行之前初始化，属于编译期初始化。</p>
+<p>C++中由于引入对象，对象生成必须调用构造函数，因此C++规定全局或局部静态对象当且仅当对象首次用到时进行构造</p>
+<h3 id="9-请你说一说用户态和内核态区别"><a href="#9-请你说一说用户态和内核态区别" class="headerlink" title="9 请你说一说用户态和内核态区别"></a>9 请你说一说用户态和内核态区别</h3><p>用户态和内核态是操作系统的两种运行级别，两者最大的区别就是特权级不同。用户态拥有最低的特权级，内核态拥有较高的特权级。运行在用户态的程序不能直接访问操作系统内核数据结构和程序。内核态和用户态之间的转换方式主要包括：系统调用，异常和中断</p>
+<h3 id="10-如何设计server，使得能够接收多个客户端的请求"><a href="#10-如何设计server，使得能够接收多个客户端的请求" class="headerlink" title="10 如何设计server，使得能够接收多个客户端的请求"></a>10 如何设计server，使得能够接收多个客户端的请求</h3><p>多线程，线程池，io复用</p>
+<h3 id="11-死循环-来连接时新建线程的方法效率有点低，怎么改进？"><a href="#11-死循环-来连接时新建线程的方法效率有点低，怎么改进？" class="headerlink" title="11 死循环+来连接时新建线程的方法效率有点低，怎么改进？"></a>11 死循环+来连接时新建线程的方法效率有点低，怎么改进？</h3><p>提前创建好一个线程池，用<strong>生产者消费者模型</strong>，创建一个任务队列，队列作为临界资源，有了新连接，就挂在到任务队列上，队列为空所有线程睡眠。改进死循环：使用select epoll这样的技术</p>
+<h3 id="12-怎么唤醒被阻塞的socket线程？"><a href="#12-怎么唤醒被阻塞的socket线程？" class="headerlink" title="12 怎么唤醒被阻塞的socket线程？"></a>12 怎么唤醒被阻塞的socket线程？</h3><p>给阻塞时候缺少的资源</p>
+<h3 id="13-怎样确定当前线程是繁忙还是阻塞？"><a href="#13-怎样确定当前线程是繁忙还是阻塞？" class="headerlink" title="13 怎样确定当前线程是繁忙还是阻塞？"></a>13 怎样确定当前线程是繁忙还是阻塞？</h3><p>使用ps命令查看</p>
+<h3 id="14-请问就绪状态的进程在等待什么？"><a href="#14-请问就绪状态的进程在等待什么？" class="headerlink" title="14 请问就绪状态的进程在等待什么？"></a>14 请问就绪状态的进程在等待什么？</h3><p>被调度使用cpu的运行权</p>
+<h3 id="15-两个进程访问临界区资源，会不会出现都获得自旋锁的情况？"><a href="#15-两个进程访问临界区资源，会不会出现都获得自旋锁的情况？" class="headerlink" title="15 两个进程访问临界区资源，会不会出现都获得自旋锁的情况？"></a>15 两个进程访问临界区资源，会不会出现都获得自旋锁的情况？</h3><p>单核cpu，并且开了抢占可以造成这种情况。</p>
+<h3 id="16-windows消息机制知道吗，请说一说"><a href="#16-windows消息机制知道吗，请说一说" class="headerlink" title="16 windows消息机制知道吗，请说一说"></a>16 windows消息机制知道吗，请说一说</h3><p>当用户有操作(鼠标，键盘等)时，系统会将这些时间转化为消息。每个打开的进程系统都为其维护了一个消息队列，系统会将这些消息放到进程的<strong>消息队列</strong>中，而应用程序会循环从消息队列中取出来消息，完成对应的操作</p>
+<h3 id="17-说一说C-你用到的锁"><a href="#17-说一说C-你用到的锁" class="headerlink" title="17 说一说C++你用到的锁?"></a>17 说一说C++你用到的锁?</h3><p>生产者消费者问题利用互斥锁和条件变量可以很容易解决，条件变量这里起到了替代信号量的作用</p>
+<h3 id="18-请你说一说C-内存溢出和内存泄漏"><a href="#18-请你说一说C-内存溢出和内存泄漏" class="headerlink" title="18 请你说一说C++内存溢出和内存泄漏"></a>18 请你说一说C++内存溢出和内存泄漏</h3><p>1、内存溢出</p>
+<p>指程序申请内存时，没有足够的内存供申请者使用。内存溢出就是你要的内存空间超过了系统实际分配给你的空间，此时系统相当于没法满足你的需求，就会报内存溢出的错误</p>
+<p>内存溢出原因：</p>
+<p>内存中加载的数据量过于庞大，如一次从数据库取出过多数据</p>
+<p>集合类中有对对象的引用，使用完后未清空，使得不能回收</p>
+<p>代码中存在死循环或循环产生过多重复的对象实体</p>
+<p>使用的第三方软件中的BUG</p>
+<p>启动参数内存值设定的过小</p>
+<p>2、内存泄漏</p>
+<p>内存泄漏是指由于疏忽或错误造成了程序未能释放掉不再使用的内存的情况。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，失去了对该段内存的控制，因而造成了内存的浪费。</p>
+<p>内存泄漏的分类：</p>
+<p>1、堆内存泄漏 （Heap leak）。对内存指的是程序运行中根据需要分配通过malloc,realloc new等从堆中分配的一块内存，再是完成后必须通过调用对应的 free或者delete 删掉。如果程序的设计的错误导致这部分内存没有被释放，那么此后这块内存将不会被使用，就会产生Heap Leak。</p>
+<p>2、系统资源泄露（Resource Leak）。主要指程序使用系统分配的资源比如 Bitmap,handle ,SOCKET等没有使用相应的函数释放掉，导致系统资源的浪费，严重可导致系统效能降低，系统运行不稳定。</p>
+<p>3、没有将基类的析构函数定义为虚函数。当基类指针指向子类对象时，如果基类的析构函数不是virtual，那么子类的析构函数将不会被调用，子类的资源没有正确是释放，因此造成内存泄露。</p>
+<h3 id="19-请你来说一说协程"><a href="#19-请你来说一说协程" class="headerlink" title="19 请你来说一说协程?"></a>19 请你来说一说协程?</h3><p>1、概念：</p>
+<p>协程，又称微线程，纤程，英文名Coroutine。协程看上去也是子程序，但执行过程中，<strong>在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行</strong></p>
+<p>2）协程和线程区别</p>
+<p>那和多线程比，<strong>协程最大的优势就是协程极高的执行效率</strong>。因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显。</p>
+<p>第二大优势就是不需要多线程的锁机制，因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
+<p>3）其他</p>
+<p>在协程上利用多核CPU呢——多进程+协程，既充分利用多核，又充分发挥协程的高效率，可获得极高的性能。</p>
+<p>Python对协程的支持还非常有限，用在generator中的yield可以一定程度上实现协程。虽然支持不完全，但已经可以发挥相当大的威力了。</p>
+<h3 id="20-请你说一下僵尸进程？"><a href="#20-请你说一下僵尸进程？" class="headerlink" title="20 请你说一下僵尸进程？"></a>20 请你说一下僵尸进程？</h3><p>1）正常进程</p>
+<p>正常情况下，子进程是通过父进程创建的，子进程再创建新的进程。</p>
+<p>2）孤儿进程</p>
+<p>一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤儿进程。<strong>孤儿进程将被init进程(进程号为1)所收养</strong>，并由init进程对它们完成状态收集工作</p>
+<p>3）僵尸进程</p>
+<p><strong>一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中。这种进程称之为僵尸进程</strong>。</p>
+<p>外部消灭：</p>
+<p>通过kill发送SIGTERM或者SIGKILL信号消灭产生僵尸进程的进程，它产生的僵死进程就变成了孤儿进程，这些孤儿进程会被init进程接管，init进程会wait()这些孤儿进程，释放它们占用的系统进程表中的资源</p>
+<p>内部解决：</p>
+<p>1、<strong>子进程退出时向父进程发送SIGCHILD信号，父进程处理SIGCHILD信号。在信号处理函数中调用wait进行处理僵尸进程。</strong></p>
+<p>2、<strong>fork两次，原理是将子进程成为孤儿进程，从而其的父进程变为init进程，通过init进程可以处理僵尸进程。</strong></p>
+<h3 id="21-请你来介绍一下5种IO模型"><a href="#21-请你来介绍一下5种IO模型" class="headerlink" title="21 请你来介绍一下5种IO模型"></a>21 请你来介绍一下5种IO模型</h3><p>1.阻塞IO:调用者调用了某个函数，等待这个函数返回，期间什么也不做，不停的去检查这个函数有没有返回，必须等这个函数返回才能进行下一步动作</p>
+<p> 2.非阻塞IO:非阻塞等待，每隔一段时间就去检测IO事件是否就绪。没有就绪就可以做其他事。 </p>
+<p>3.信号驱动IO:信号驱动IO:linux用套接口进行信号驱动IO，安装一个信号处理函数，进程继续运行并不阻塞，当IO时间就绪，进程收到SIGIO信号。然后处理IO事件。 </p>
+<p>4.IO复用/多路转接IO:linux用select/poll函数实现IO复用模型，这两个函数也会使进程阻塞，但是和阻塞IO所不同的是这两个函数可以同时阻塞多个IO操作。而且可以同时对多个读操作、写操作的IO函数进行检测。知道有数据可读或可写时，才真正调用IO操作函数 </p>
+<p>5.异步IO:linux中，可以调用aio_read函数告诉内核描述字缓冲区指针和缓冲区的大小、文件偏移及通知的方式，然后立即返回，当内核将数据拷贝到缓冲区后，再通知应用程序。</p>
+<h3 id="22-请问server端监听端口，但还没有客户端连接进来，此时进程处于什么状态？"><a href="#22-请问server端监听端口，但还没有客户端连接进来，此时进程处于什么状态？" class="headerlink" title="22 请问server端监听端口，但还没有客户端连接进来，此时进程处于什么状态？"></a>22 请问server端监听端口，但还没有客户端连接进来，此时进程处于什么状态？</h3><p>这个需要看服务端的编程模型，如果如上一个问题的回答描述的这样，则处于阻塞状态，如果使用了epoll,select等这样的io复用情况下，处于运行状态</p>
+<h3 id="23-请问C-怎么实现线程池"><a href="#23-请问C-怎么实现线程池" class="headerlink" title="23 请问C++怎么实现线程池?"></a>23 请问C++怎么实现线程池?</h3><p>设置一个生产者消费者队列，作为临界资源</p>
+<h3 id="24-Linux下怎么得到一个文件的100到200行"><a href="#24-Linux下怎么得到一个文件的100到200行" class="headerlink" title="24 Linux下怎么得到一个文件的100到200行"></a>24 Linux下怎么得到一个文件的100到200行</h3><p>sed -n ‘100,200p’ inputfile</p>
+<p>awk ‘NR&gt;=100&amp;&amp;NR&lt;=200{print}’ inputfile</p>
+<p>head -200 inputfile|tail -100</p>
+<h3 id="25-请你来说一下awk的使用"><a href="#25-请你来说一下awk的使用" class="headerlink" title="25 请你来说一下awk的使用"></a>25 请你来说一下awk的使用</h3><p>1）作用：</p>
+<p>样式扫描和处理语言。它允许创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报表，还有无数其他的功能。</p>
+<p>2）用法：</p>
+<p>awk [-F field-separator] ‘commands’ input-file(s)</p>
+<p>3）内置变量</p>
+<table>
+<thead>
+<tr>
+<th>ARGC</th>
+<th>命令行参数个数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ARGV</td>
+<td>命令行参数排列</td>
+</tr>
+<tr>
+<td>ENVIRON</td>
+<td>支持队列中系统环境变量的使用</td>
+</tr>
+<tr>
+<td>FILENAME</td>
+<td>awk浏览的文件名</td>
+</tr>
+<tr>
+<td>FNR</td>
+<td>浏览文件的记录数</td>
+</tr>
+<tr>
+<td>FS</td>
+<td>设置输入域分隔符，等价于命令行 -F选项</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>浏览记录的域的个数</td>
+</tr>
+<tr>
+<td>NR</td>
+<td>已读的记录数</td>
+</tr>
+<tr>
+<td>OFS</td>
+<td>输出域分隔符</td>
+</tr>
+<tr>
+<td>ORS</td>
+<td>输出记录分隔符</td>
+</tr>
+<tr>
+<td>RS</td>
+<td>控制记录分隔符</td>
+</tr>
+</tbody></table>
+<p>如果你觉得文章还不错，记得”<strong>点赞关注</strong>“</p>
+<p>关注我的微信公众号【 <strong>加班猿</strong> 】可以获取更多内容</p>
+<p><img src="https://img-blog.csdnimg.cn/20201029203206698.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/05/11/C++%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E5%9F%BA%E6%9C%AC%E8%AF%AD%E8%A8%80/">← Prev C++常见面试题之基本语言</a><span style="color: #fe2"> | </span><a href="/2021/05/11/%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">常见面试题之数据库 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><details id="reward"><summary>打赏</summary><div id="alipay"><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div id="wechat"><span>微信 | WeChat</span><br><img src="/img/WeChat.png"></div></details><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: 'Nq5lj4VJyzKxDJIKCQ8wQAWs-gzGzoHsz'
+ , appKey: 'RSAaB7CGtQpU2kjI3iFgD7Rz'
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a target="_blank" rel="noopener" href="https://github.com/coderhackett"> Dr.hackett</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">22</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">11</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">12</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E4%B8%8B%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%EF%BC%8C%E5%85%B6%E4%B8%AD%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%96%E4%BB%AC%E5%90%84%E8%87%AA%E5%8F%88%E6%98%AF%E6%80%8E%E4%B9%88%E5%90%8C%E6%AD%A5%E7%9A%84"><span class="toc-number">1.</span> <span class="toc-text">1 请你说一下进程与线程的概念，以及为什么要有进程线程，其中有什么区别，他们各自又是怎么同步的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%B7%E9%97%AEMySQL%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%8F%B7%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9%E8%BF%99%E4%B8%AA%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="toc-number">2.</span> <span class="toc-text">2 请问MySQL的端口号是多少，如何修改这个端口号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4%E6%9C%89%E4%BA%86%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E8%A6%81%E6%9C%89%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">3 请你说一说有了进程，为什么还要有线程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%B7%E9%97%AE%E5%8D%95%E6%A0%B8%E6%9C%BA%E5%99%A8%E4%B8%8A%E5%86%99%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%A8%8B%E5%BA%8F%EF%BC%8C%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E5%8A%A0%E9%94%81%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">4 请问单核机器上写多线程程序，是否需要考虑加锁，为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E5%BC%8F%EF%BC%8C%E6%9C%80%E5%A5%BD%E8%AF%B4%E5%87%BA%E5%85%B7%E4%BD%93%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">5 请你说一说线程间的同步方式，最好说出具体的系统调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BA%94%E8%AF%A5%E4%B8%BA%E6%AF%8F%E4%B8%AA%E7%94%A8%E6%88%B7%E5%BC%80%E8%BE%9F%E4%B8%80%E4%B8%AA%E7%BA%BF%E7%A8%8B%E8%BF%98%E6%98%AF%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">6 游戏服务器应该为每个用户开辟一个线程还是一个进程，为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93%E5%AF%B9%E9%BD%90%EF%BC%8C%E5%AD%97%E8%8A%82%E5%AF%B9%E9%BD%90"><span class="toc-number">7.</span> <span class="toc-text">7 请你说一说操作系统中的结构体对齐，字节对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%AF%B7%E4%BD%A0%E5%9B%9E%E7%AD%94%E4%B8%80%E4%B8%8B%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">8.</span> <span class="toc-text">8 请你回答一下静态变量什么时候初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81%E5%8C%BA%E5%88%AB"><span class="toc-number">9.</span> <span class="toc-text">9 请你说一说用户态和内核态区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1server%EF%BC%8C%E4%BD%BF%E5%BE%97%E8%83%BD%E5%A4%9F%E6%8E%A5%E6%94%B6%E5%A4%9A%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-number">10.</span> <span class="toc-text">10 如何设计server，使得能够接收多个客户端的请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E6%AD%BB%E5%BE%AA%E7%8E%AF-%E6%9D%A5%E8%BF%9E%E6%8E%A5%E6%97%B6%E6%96%B0%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95%E6%95%88%E7%8E%87%E6%9C%89%E7%82%B9%E4%BD%8E%EF%BC%8C%E6%80%8E%E4%B9%88%E6%94%B9%E8%BF%9B%EF%BC%9F"><span class="toc-number">11.</span> <span class="toc-text">11 死循环+来连接时新建线程的方法效率有点低，怎么改进？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E6%80%8E%E4%B9%88%E5%94%A4%E9%86%92%E8%A2%AB%E9%98%BB%E5%A1%9E%E7%9A%84socket%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-number">12.</span> <span class="toc-text">12 怎么唤醒被阻塞的socket线程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E6%80%8E%E6%A0%B7%E7%A1%AE%E5%AE%9A%E5%BD%93%E5%89%8D%E7%BA%BF%E7%A8%8B%E6%98%AF%E7%B9%81%E5%BF%99%E8%BF%98%E6%98%AF%E9%98%BB%E5%A1%9E%EF%BC%9F"><span class="toc-number">13.</span> <span class="toc-text">13 怎样确定当前线程是繁忙还是阻塞？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E8%AF%B7%E9%97%AE%E5%B0%B1%E7%BB%AA%E7%8A%B6%E6%80%81%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%9C%A8%E7%AD%89%E5%BE%85%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">14.</span> <span class="toc-text">14 请问就绪状态的进程在等待什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E4%B8%A4%E4%B8%AA%E8%BF%9B%E7%A8%8B%E8%AE%BF%E9%97%AE%E4%B8%B4%E7%95%8C%E5%8C%BA%E8%B5%84%E6%BA%90%EF%BC%8C%E4%BC%9A%E4%B8%8D%E4%BC%9A%E5%87%BA%E7%8E%B0%E9%83%BD%E8%8E%B7%E5%BE%97%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E6%83%85%E5%86%B5%EF%BC%9F"><span class="toc-number">15.</span> <span class="toc-text">15 两个进程访问临界区资源，会不会出现都获得自旋锁的情况？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-windows%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E7%9F%A5%E9%81%93%E5%90%97%EF%BC%8C%E8%AF%B7%E8%AF%B4%E4%B8%80%E8%AF%B4"><span class="toc-number">16.</span> <span class="toc-text">16 windows消息机制知道吗，请说一说</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-%E8%AF%B4%E4%B8%80%E8%AF%B4C-%E4%BD%A0%E7%94%A8%E5%88%B0%E7%9A%84%E9%94%81"><span class="toc-number">17.</span> <span class="toc-text">17 说一说C++你用到的锁?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4C-%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%92%8C%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-number">18.</span> <span class="toc-text">18 请你说一说C++内存溢出和内存泄漏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E8%AF%B4%E5%8D%8F%E7%A8%8B"><span class="toc-number">19.</span> <span class="toc-text">19 请你来说一说协程?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#20-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E4%B8%8B%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="toc-number">20.</span> <span class="toc-text">20 请你说一下僵尸进程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B5%E7%A7%8DIO%E6%A8%A1%E5%9E%8B"><span class="toc-number">21.</span> <span class="toc-text">21 请你来介绍一下5种IO模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-%E8%AF%B7%E9%97%AEserver%E7%AB%AF%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3%EF%BC%8C%E4%BD%86%E8%BF%98%E6%B2%A1%E6%9C%89%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E8%BF%9B%E6%9D%A5%EF%BC%8C%E6%AD%A4%E6%97%B6%E8%BF%9B%E7%A8%8B%E5%A4%84%E4%BA%8E%E4%BB%80%E4%B9%88%E7%8A%B6%E6%80%81%EF%BC%9F"><span class="toc-number">22.</span> <span class="toc-text">22 请问server端监听端口，但还没有客户端连接进来，此时进程处于什么状态？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-%E8%AF%B7%E9%97%AEC-%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">23.</span> <span class="toc-text">23 请问C++怎么实现线程池?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-Linux%E4%B8%8B%E6%80%8E%E4%B9%88%E5%BE%97%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E7%9A%84100%E5%88%B0200%E8%A1%8C"><span class="toc-number">24.</span> <span class="toc-text">24 Linux下怎么得到一个文件的100到200行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#25-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E4%B8%8Bawk%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">25.</span> <span class="toc-text">25 请你来说一下awk的使用</span></a></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>C++常见面试题之基本语言 | 加班猿</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script><script>mermaid.initialize({
+  startOnLoad: true
+  , theme: 'dark'
+});</script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2021-05-10T16:00:00.000Z" id="date"> 2021-05-11</time></span><br><span>updated:<time datetime="2021-07-02T11:43:00.170Z" id="updated"> 2021-07-02</time></span></div><h1>C++常见面试题之基本语言</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div align = 'right'>作者：hackett</div>
+
+<div align = 'right'>微信公众号：加班猿</div>
+
+<h1 id="一、基本语言"><a href="#一、基本语言" class="headerlink" title="一、基本语言"></a>一、基本语言</h1><h2 id="1、基本知识"><a href="#1、基本知识" class="headerlink" title="1、基本知识"></a>1、基本知识</h2><h3 id="1-说下C-和C的区别"><a href="#1-说下C-和C的区别" class="headerlink" title="1 说下C++和C的区别"></a>1 说下C++和C的区别</h3><p>C++是面向对象的语言（有重载、继承和多态三种特性，增加了类型安全功能，比如强制类型转换，支持范式编程，比如模板类、函数模板等）</p>
+<p>C是面向过程的结构化编程语言</p>
+<h3 id="2-说一下C-中static关键字的作用"><a href="#2-说一下C-中static关键字的作用" class="headerlink" title="2 说一下C++中static关键字的作用"></a>2 说一下C++中static关键字的作用</h3><ol>
+<li>静态全局变量：<ul>
+<li>  全局数据区分配内存，程序运行期间一直存在</li>
+<li>  未初始化<strong>自动初始化为0</strong></li>
+<li>  声明它的整个文件可见，文件之外不可见</li>
+</ul>
+</li>
+<li>静态局部变量：<ul>
+<li>  该对象的声明处时<strong>被首次初始化</strong>，即<strong>以后的函数调用不再进行初始化</strong></li>
+<li>  作用域仍为<strong>局部作用域</strong>，当定义它的函数或者语句块结束的时候，作用域结束</li>
+</ul>
+</li>
+<li>静态函数：<ul>
+<li>  只在声明的文件中可见，不可被其他文件调用</li>
+<li>  其它文件中可以定义相同名字的函数，不会发生冲突</li>
+</ul>
+</li>
+<li>静态数据成员：<ul>
+<li>  <strong>静态数据成语在程序中只有一个拷贝，由该类型所有对象共享访问，只分配一次内存</strong></li>
+<li>  <strong>存储在全局数据区，静态数据成员定义时要分配空间，所以不能在类声明中定义</strong></li>
+</ul>
+</li>
+<li>静态成员函数：<ul>
+<li>  它为<strong>类的全部服务</strong>而不是为某一个类的具体对象服务</li>
+<li>  它<strong>不具有this指针</strong>，<strong>无法访问属于类对象的非静态数据成员，也无法访问非静态成员函数</strong></li>
+</ul>
+</li>
+</ol>
+<h3 id="3-说一说C-中四种cast转换"><a href="#3-说一说C-中四种cast转换" class="headerlink" title="3 说一说C++中四种cast转换"></a>3 说一说C++中四种cast转换</h3><ol>
+<li><p>const_cast</p>
+<p> 用于将const变量转为非const</p>
+</li>
+<li><p>static_cast</p>
+<p>用于各种隐式转换，比如非const转const，void*转指针等, static_cast能用于多态向上转化，如果向下转能成功但是不安全，结果未知；</p>
+</li>
+<li><p>dynamic_cast</p>
+<p>用于动态类型转换。只能用于含有虚函数的类，用于类层次间的向上和向下转化。只能转指针或引用。向下转化时，如果是非法的对于指针返回NULL，对于引用抛异常。要深入了解内部转换的原理。</p>
+<p> 向上转换：指的是子类向基类的转换</p>
+<p> 向下转换：指的是基类向子类的转换</p>
+<p> 它通过判断在执行到该语句的时候变量的运行时类型和要转换的类型是否相同来判断是否能够进行向下转换。</p>
+</li>
+<li><p>reinterpret_cast</p>
+<p> 几乎什么都可以转，比如将int转指针，可能会出问题，尽量少用；</p>
+</li>
+</ol>
+<h3 id="4-说一下C-C-中指针和引用的区别"><a href="#4-说一下C-C-中指针和引用的区别" class="headerlink" title="4 说一下C/C++中指针和引用的区别"></a>4 说一下C/C++中指针和引用的区别</h3><p>1.指针有自己的一块空间，而引用只是一个别名；</p>
+<p>2.使用sizeof看一个指针的大小是4，而引用则是被引用对象的大小；</p>
+<p>3.指针可以被初始化为NULL，而引用必须被初始化且必须是一个已有对象 的引用；</p>
+<p>4.作为参数传递时，指针需要被解引用才可以对对象进行操作，而直接对引用的修改都会改变引用所指向的对象；</p>
+<p>5.可以有const指针，但是没有const引用；</p>
+<p>6.指针在使用中可以指向其它对象，但是引用只能是一个对象的引用，不能被改变；</p>
+<p>7.指针可以有多级指针（**p），而引用只有一级；</p>
+<p>8.指针和引用使用++运算符的意义不一样；</p>
+<p>9.如果返回动态内存分配的对象或者内存，必须使用指针，引用可能引起内存泄露。</p>
+<h3 id="5-说一下指针和数组的主要区别"><a href="#5-说一下指针和数组的主要区别" class="headerlink" title="5 说一下指针和数组的主要区别"></a>5 说一下指针和数组的主要区别</h3><p>指针和数组的主要区别如下：</p>
+<table>
+<thead>
+<tr>
+<th>指针</th>
+<th>数组</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>保存数据的地址</td>
+<td>保存数据</td>
+</tr>
+<tr>
+<td>间接访问数据，首先获得指针的内容，然后将其作为地址，从该地址中提取数据</td>
+<td>直接访问数据，</td>
+</tr>
+<tr>
+<td>通常用于动态的数据结构</td>
+<td>通常用于固定数目且数据类型相同的元素</td>
+</tr>
+<tr>
+<td>通过Malloc分配内存，free释放内存</td>
+<td>隐式的分配和删除</td>
+</tr>
+<tr>
+<td>通常指向匿名数据，操作匿名函数</td>
+<td>自身即为数据名</td>
+</tr>
+</tbody></table>
+<h3 id="6-说一下野指针是什么？"><a href="#6-说一下野指针是什么？" class="headerlink" title="6 说一下野指针是什么？"></a>6 说一下野指针是什么？</h3><p>野指针就是指向一个已删除的对象或者未申请访问受限内存区域的指针。</p>
+<h3 id="7-说一下C-中的智能指针"><a href="#7-说一下C-中的智能指针" class="headerlink" title="7 说一下C++中的智能指针"></a>7 说一下C++中的智能指针</h3><p>share_ptr：申请堆内存初始化为1，使用时+1，释放时-1，为0时堆内存释放</p>
+<p>unique_ptr：指向的堆内存空间的引用计数，都只能为 1，放弃所指空间，堆内存空间释放回收</p>
+<p>weak_ptr：需要搭配share_ptr使用，指针被释放所指堆内存的引用计数不会-1</p>
+<h3 id="8-说一下智能指针有没有内存泄露的情况"><a href="#8-说一下智能指针有没有内存泄露的情况" class="headerlink" title="8 说一下智能指针有没有内存泄露的情况"></a>8 说一下智能指针有没有内存泄露的情况</h3><p>当两个对象相互使用一个shared_ptr成员变量指向对方，会造成循环引用，使引用计数失效，从而导致内存泄漏</p>
+<h3 id="9-说一下智能指针内存泄露如何解决"><a href="#9-说一下智能指针内存泄露如何解决" class="headerlink" title="9 说一下智能指针内存泄露如何解决"></a>9 说一下智能指针内存泄露如何解决</h3><p>为了解决循环引用导致的内存泄漏，引入了weak_ptr弱指针，weak_ptr的构造函数不会修改引用计数的值，从而不会对对象的内存进行管理，其类似一个普通指针，但不指向引用计数的共享内存，但是其可以检测到所管理的对象是否已经被释放，从而避免非法访问。</p>
+<h3 id="10-说一下为什么析构函数必须是虚函数？为什么C-默认的析构函数不是虚函数"><a href="#10-说一下为什么析构函数必须是虚函数？为什么C-默认的析构函数不是虚函数" class="headerlink" title="10 说一下为什么析构函数必须是虚函数？为什么C++默认的析构函数不是虚函数"></a>10 说一下为什么析构函数必须是虚函数？为什么C++默认的析构函数不是虚函数</h3><p>1、将可能会被继承的父类的析构函数设置为虚函数，可以保证当我们new一个子类，然后使用基类指针指向该子类对象，释放基类指针时可以释放掉子类的空间，防止内存泄漏。</p>
+<p>2、C++默认的析构函数不是虚函数是因为虚函数需要额外的<strong>虚函数表和虚表指针</strong>，占用额外的内存。而对于不会被继承的类来说，其析构函数如果是虚函数，就会浪费内存。因此C++默认的析构函数不是虚函数，而是<strong>只有当需要当作父类时，设置为虚函数</strong>。</p>
+<h3 id="11-说一下函数指针"><a href="#11-说一下函数指针" class="headerlink" title="11 说一下函数指针"></a>11 说一下函数指针</h3><p>定义：函数指针是指向函数的指针变量。</p>
+<p>用途：调用函数和做函数的参数，比如回调函数。</p>
+<h3 id="12-说一下fork函数"><a href="#12-说一下fork函数" class="headerlink" title="12 说一下fork函数"></a>12 说一下fork函数</h3><p>fork( )会创建一个新的进程，它几乎与调用fork( )的进程一模一样</p>
+<h3 id="13-说一下C-析构函数的作用"><a href="#13-说一下C-析构函数的作用" class="headerlink" title="13 说一下C++析构函数的作用"></a>13 说一下C++析构函数的作用</h3><p>1、析构函数与构造函数对应，当对象结束其生命周期，如对象所在的函数已调用完毕时，系统会自动执行析构函数</p>
+<p>2、使用的过程中动态的申请了内存，那么最好显示构造析构函数在销毁类之前，释放掉申请的内存空间，避免内存泄漏</p>
+<h3 id="14-说一下静态函数和虚函数的区别"><a href="#14-说一下静态函数和虚函数的区别" class="headerlink" title="14 说一下静态函数和虚函数的区别"></a>14 说一下静态函数和虚函数的区别</h3><p>静态函数在编译的时候就已经确定运行时机，虚函数在运行的时候动态绑定。虚函数因为用了虚函数表机制，调用的时候会增加一次内存开销</p>
+<h3 id="15-写个函数在main函数执行前先运行"><a href="#15-写个函数在main函数执行前先运行" class="headerlink" title="15 写个函数在main函数执行前先运行"></a>15 写个函数在main函数执行前先运行</h3><p>__attribute((constructor)) void before()</p>
+<p>{ printf(<code>&quot;before main\n&quot;</code>);}</p>
+<h3 id="16-C-怎么定义常量？常量-存放在内存中的那个位置？"><a href="#16-C-怎么定义常量？常量-存放在内存中的那个位置？" class="headerlink" title="16 C++怎么定义常量？常量 存放在内存中的那个位置？"></a>16 C++怎么定义常量？常量 存放在内存中的那个位置？</h3><p>1、常量在C++里的定义就是一个top-level const加上对象类型，常量定义必须初始化。</p>
+<p>2、对于局部对象，常量存放在栈区，对于全局对象，常量存放在全局/静态存储区。对于字面值常量，常量存放在常量存储区。</p>
+<h3 id="17-const修饰成员函数的目的？"><a href="#17-const修饰成员函数的目的？" class="headerlink" title="17 const修饰成员函数的目的？"></a>17 const修饰成员函数的目的？</h3><p>const修饰的成员函数表明函数调用不会对对象做出任何更改</p>
+<h3 id="18-如果同时定义了两个函数，一个带const，一个不带，会有问题吗？"><a href="#18-如果同时定义了两个函数，一个带const，一个不带，会有问题吗？" class="headerlink" title="18 如果同时定义了两个函数，一个带const，一个不带，会有问题吗？"></a>18 如果同时定义了两个函数，一个带const，一个不带，会有问题吗？</h3><p>不会，这相当于函数的重载。</p>
+<h3 id="19-请你来说一说C-中的隐式类型转换？"><a href="#19-请你来说一说C-中的隐式类型转换？" class="headerlink" title="19 请你来说一说C++中的隐式类型转换？"></a>19 请你来说一说C++中的隐式类型转换？</h3><p>首先，对于内置类型，低精度的变量给高精度变量赋值会发生隐式类型转换，其次，对于只存在单个参数的构造函数的对象构造来说，函数调用可以直接使用该参数传入，编译器会自动调用其构造函数生成临时对象</p>
+<h3 id="20-请你来说一说C-函数栈空间的最大值？"><a href="#20-请你来说一说C-函数栈空间的最大值？" class="headerlink" title="20 请你来说一说C++函数栈空间的最大值？"></a>20 请你来说一说C++函数栈空间的最大值？</h3><p>默认是1M，不过可以调整</p>
+<h3 id="21-请你来说一说extern“C”-？"><a href="#21-请你来说一说extern“C”-？" class="headerlink" title="21 请你来说一说extern“C” ？"></a>21 请你来说一说extern“C” ？</h3><p>C++调用C函数需要extern C，因为C语言没有函数重载。</p>
+<h3 id="22-请你说说你了解的RTTI？"><a href="#22-请你说说你了解的RTTI？" class="headerlink" title="22 请你说说你了解的RTTI？"></a>22 请你说说你了解的RTTI？</h3><p>运行时类型检查，在C++层面主要体现在dynamic_cast和typeid,VS中虚函数表的-1位置存放了指向type_info的指针。对于存在虚函数的类型，typeid和dynamic_cast都会去查询type_info</p>
+<h3 id="23-请你说说虚函数表具体是怎样实现运行时多态的？"><a href="#23-请你说说虚函数表具体是怎样实现运行时多态的？" class="headerlink" title="23 请你说说虚函数表具体是怎样实现运行时多态的？"></a>23 请你说说虚函数表具体是怎样实现运行时多态的？</h3><p>子类若重写父类虚函数，虚函数表中，该函数的地址会被替换，对于存在虚函数的类的对象，在VS中，对象的对象模型的头部存放指向虚函数表的指针，通过该机制实现多态。</p>
+<h3 id="24-请你说说C语言是怎么进行函数调用的？"><a href="#24-请你说说C语言是怎么进行函数调用的？" class="headerlink" title="24 请你说说C语言是怎么进行函数调用的？"></a>24 请你说说C语言是怎么进行函数调用的？</h3><p>每一个函数调用都会分配函数栈，在栈内进行函数执行过程。调用前，先把返回地址压栈，然后把当前函数的esp指针压栈。</p>
+<h3 id="25-请你说说C语言参数压栈顺序？"><a href="#25-请你说说C语言参数压栈顺序？" class="headerlink" title="25 请你说说C语言参数压栈顺序？"></a>25 请你说说C语言参数压栈顺序？</h3><p>从右到左</p>
+<h3 id="26-请你说说C-如何处理返回值？"><a href="#26-请你说说C-如何处理返回值？" class="headerlink" title="26 请你说说C++如何处理返回值？"></a>26 请你说说C++如何处理返回值？</h3><p>生成一个临时变量，把它的引用作为函数参数传入函数内</p>
+<h3 id="27-请你回答一下C-中拷贝赋值函数的形参能否进行值传递？"><a href="#27-请你回答一下C-中拷贝赋值函数的形参能否进行值传递？" class="headerlink" title="27 请你回答一下C++中拷贝赋值函数的形参能否进行值传递？"></a>27 请你回答一下C++中拷贝赋值函数的形参能否进行值传递？</h3><p>不能。如果是这种情况下，调用拷贝构造函数的时候，首先要将实参传递给形参，这个传递的时候又要调用拷贝构造函数。。如此循环，无法完成拷贝，栈也会满。</p>
+<h3 id="28-请你回答一下malloc与new区别？"><a href="#28-请你回答一下malloc与new区别？" class="headerlink" title="28 请你回答一下malloc与new区别？"></a>28 请你回答一下malloc与new区别？</h3><p>1、new分配内存按照数据类型进行分配，malloc分配内存按照指定的大小分配；</p>
+<p>2、new返回的是指定对象的指针，而malloc返回的是void*，因此malloc的返回值一般都需要进行类型转化。</p>
+<p>3、new不仅分配一段内存，而且会调用构造函数，malloc不会。</p>
+<p>4、new分配的内存要用delete销毁，malloc要用free来销毁；delete销毁的时候会调用对象的析构函数，而free则不会。</p>
+<p>5、new是一个操作符可以重载，malloc是一个库函数。</p>
+<p>6、malloc分配的内存不够的时候，可以用realloc扩容。扩容的原理？new没用这样操作。</p>
+<p>7、new如果分配失败了会抛出bad_malloc的异常，而malloc失败了会返回NULL。</p>
+<p>8、申请数组时： new[]一次分配所有内存，多次调用构造函数，搭配使用delete[]，delete[]多次调用析构函数，销毁数组中的每个对象。而malloc则只能sizeof(int) * n。</p>
+<h3 id="29-请你说一说select-？"><a href="#29-请你说一说select-？" class="headerlink" title="29 请你说一说select  ？"></a>29 请你说一说select  ？</h3><p>select在使用前，先将需要监控的描述符对应的bit位置1，然后将其传给select,当有任何一个事件发生时，select将会返回所有的描述符，需要在应用程序自己遍历去检查哪个描述符上有事件发生，效率很低，并且其不断在内核态和用户态进行描述符的拷贝，开销很大</p>
+<h3 id="30-请你说说fork-wait-exec函数-？"><a href="#30-请你说说fork-wait-exec函数-？" class="headerlink" title="30 请你说说fork,wait,exec函数 ？"></a>30 请你说说fork,wait,exec函数 ？</h3><p>父进程产生子进程使用fork拷贝出来一个父进程的副本，此时只拷贝了父进程的页表，两个进程都读同一块内存，当有进程写的时候使用写实拷贝机制分配内存，exec函数可以加载一个elf文件去替换父进程，从此父进程和子进程就可以运行不同的程序了。fork从父进程返回子进程的pid，从子进程返回0.调用了wait的父进程将会发生阻塞，直到有子进程状态改变,执行成功返回0，错误返回-1。exec执行成功则子进程从新的程序开始运行，无返回值，执行失败返回-1</p>
+<h2 id="2-类和数据抽象"><a href="#2-类和数据抽象" class="headerlink" title="2.类和数据抽象"></a>2.类和数据抽象</h2><h3 id="1-请你来说一下C-中类成员的访问权限？"><a href="#1-请你来说一下C-中类成员的访问权限？" class="headerlink" title="1 请你来说一下C++中类成员的访问权限？"></a>1 请你来说一下C++中类成员的访问权限？</h3><p>public：共有的</p>
+<p>protected：受保护的</p>
+<p>private：私有的</p>
+<p>类内三者都可以访问，类外只能访问共有public的</p>
+<h3 id="2-请你来说一下C-中struct和class的区别？"><a href="#2-请你来说一下C-中struct和class的区别？" class="headerlink" title="2 请你来说一下C++中struct和class的区别？"></a>2 请你来说一下C++中struct和class的区别？</h3><p>C++中，可以用struct和class<strong>定义类</strong>，都可以<strong>继承</strong></p>
+<p>struct的默认继承权限和默认访问权限是public</p>
+<p>class 的默认继承权限和默认访问权限是private</p>
+<p>class还可以定义模板类形参，比如template &lt;class T, int i&gt;</p>
+<h3 id="3-请你回答一下C-类内可以定义引用数据成员吗？"><a href="#3-请你回答一下C-类内可以定义引用数据成员吗？" class="headerlink" title="3 请你回答一下C++类内可以定义引用数据成员吗？"></a>3 请你回答一下C++类内可以定义引用数据成员吗？</h3><p>可以，必须通过成员函数初始化列表初始化。</p>
+<h3 id="4-请你回答一下什么是右值引用，跟左值又有什么区别？"><a href="#4-请你回答一下什么是右值引用，跟左值又有什么区别？" class="headerlink" title="4 请你回答一下什么是右值引用，跟左值又有什么区别？"></a>4 请你回答一下什么是右值引用，跟左值又有什么区别？</h3><p>右值引用是C++11中引入的新特性 , 它实现了转移语义和精确传递。它的主要目的有两个方面：</p>
+<ol>
+<li><p> 消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</p>
+</li>
+<li><p> 能够更简洁明确地定义泛型函数。</p>
+</li>
+</ol>
+<p>左值和右值的概念：</p>
+<p>左值<strong>：能对表达式取地址、或具名对象/变量</strong>。一般指表达式结束后依然存在的持久对象。</p>
+<p>右值：<strong>不能对表达式取地址，或匿名对象</strong>。一般指表达式结束就不再存在的临时对象。</p>
+<p>右值引用和左值引用的区别：</p>
+<ol>
+<li><p> <strong>左值可以寻址，而右值不可以</strong>。</p>
+</li>
+<li><p> <strong>左值可以被赋值，右值不可以被赋值</strong>，可以用来给左值赋值。</p>
+</li>
+<li><p> <strong>左值可变,右值不可变</strong>（仅对基础类型适用，用户自定义类型右值引用可以通过成员函数改变）。</p>
+</li>
+</ol>
+<h2 id="3-编译与底层"><a href="#3-编译与底层" class="headerlink" title="3.编译与底层"></a>3.编译与底层</h2><h3 id="1-请你来说一下一个C-源文件从文本到可执行文件经历的过程？"><a href="#1-请你来说一下一个C-源文件从文本到可执行文件经历的过程？" class="headerlink" title="1 请你来说一下一个C++源文件从文本到可执行文件经历的过程？"></a>1 请你来说一下一个C++源文件从文本到可执行文件经历的过程？</h3><p>对于C++源文件，从文本到可执行文件一般需要四个过程：</p>
+<p>预处理阶段：对源代码文件中文件包含关系（头文件）、预编译语句（宏定义）进行分析和替换，<strong>生成预编译文件</strong>。</p>
+<p>编译阶段：将经过预处理后的预编译文件转换成特定汇编代码，<strong>生成汇编文件</strong></p>
+<p>汇编阶段：将编译阶段生成的汇编文件<strong>转化成机器码，生成可重定位目标文件</strong></p>
+<p>链接阶段：将多个目标文件及所需要的库连接成最终的<strong>可执行目标文件</strong></p>
+<h3 id="2-请你回答一下malloc的原理，另外brk系统调用和mmap系统调用的作用分别是什么？"><a href="#2-请你回答一下malloc的原理，另外brk系统调用和mmap系统调用的作用分别是什么？" class="headerlink" title="2 请你回答一下malloc的原理，另外brk系统调用和mmap系统调用的作用分别是什么？"></a>2 请你回答一下malloc的原理，另外brk系统调用和mmap系统调用的作用分别是什么？</h3><p>Malloc函数用于动态分配内存。</p>
+<p>malloc其采用内存池的方式，先申请大块内存作为堆区，然后将堆区分为多个内存块，以块作为内存管理的基本单位。当用户申请内存时，直接从堆区分配一块合适的空闲块。</p>
+<p>Malloc采用隐式链表结构将堆区分成连续的、大小不一的块，包含已分配块和未分配块；</p>
+<p>malloc采用显示链表结构来管理所有的空闲块，即使用一个双向链表将空闲块连接起来，每一个空闲块记录了一个连续的、未分配的地址</p>
+<p>Malloc在申请内存时 &lt; 128K  – 使用系统函数brk在<strong>堆区</strong>中分配</p>
+<p>Malloc在申请内存时 &gt; 128K  – 使用系统函数mmap在<strong>映射区</strong>分配                                   </p>
+<h3 id="3-请你说一说C-的内存管理是怎样的？"><a href="#3-请你说一说C-的内存管理是怎样的？" class="headerlink" title="3 请你说一说C++的内存管理是怎样的？"></a>3 请你说一说C++的内存管理是怎样的？</h3><p>在C++中，虚拟内存分为<strong>代码段、数据段、BSS段、堆区、文件映射区</strong>以及栈区六部分。</p>
+<p>代码段：包括只读存储区和文本区，其中只读存储区存储字符串常量，文本区存储程序的机器代码。</p>
+<p>数据段：存储程序中<strong>已初始化的全局变量和静态变量</strong></p>
+<p>bss 段：存储<strong>未初始化的全局变量和静态变量</strong>（局部+全局），以及所有被初始化为0的全局变量和静态变量。</p>
+<p>堆区：调用new/malloc函数时在堆区动态分配内存，同时需要调用delete/free来手动释放申请的内存。</p>
+<p>映射区：存储动态链接库以及调用mmap函数进行的文件映射</p>
+<p>栈：使用栈空间存储函数的返回地址、参数、局部变量、返回值</p>
+<h3 id="4-请你回答一下如何判断内存泄漏？"><a href="#4-请你回答一下如何判断内存泄漏？" class="headerlink" title="4 请你回答一下如何判断内存泄漏？"></a>4 请你回答一下如何判断内存泄漏？</h3><p>内存泄漏通常是由于调用了malloc/new等内存申请的操作，但是缺少了对应的free/delete</p>
+<p>1、内存泄漏检查工具Valgrind，mtrace</p>
+<p>2、写代码时添加内存申请和释放的统计功能，统计当前申请和释放的内存是否一致，来判断内存是否泄露</p>
+<h3 id="5-请你来说一下什么时候会发生段错误？"><a href="#5-请你来说一下什么时候会发生段错误？" class="headerlink" title="5 请你来说一下什么时候会发生段错误？"></a>5 请你来说一下什么时候会发生段错误？</h3><p>段错误通常发生在<strong>访问非法内存地址</strong>的时候，具体来说分为以下几种情况：</p>
+<p>1、使用<strong>野指针</strong></p>
+<p>2、试图<strong>修改字符串常量</strong>的内容</p>
+<h3 id="6-请你来说一下reactor模型组成-？"><a href="#6-请你来说一下reactor模型组成-？" class="headerlink" title="6 请你来说一下reactor模型组成 ？"></a>6 请你来说一下reactor模型组成 ？</h3><p>reactor模型要求主线程只负责监听文件描述上是否有事件发生，有的话就立即将该事件通知工作线程，除此之外，主线程不做任何其他实质性的工作，读写数据、接受新的连接以及处理客户请求均在工作线程中完成。</p>
+<h3 id="7-请自己设计一下如何采用单线程的方式处理高并发？"><a href="#7-请自己设计一下如何采用单线程的方式处理高并发？" class="headerlink" title="7 请自己设计一下如何采用单线程的方式处理高并发？"></a>7 请自己设计一下如何采用单线程的方式处理高并发？</h3><p>在单线程模型中，可以采用<strong>I/O复用</strong>来提高单线程处理多个请求的能力，然后再<strong>采用事件驱动模型</strong>，基于<strong>异步回调</strong>来处理事件来</p>
+<h2 id="4-C-11"><a href="#4-C-11" class="headerlink" title="4.C++11"></a>4.C++11</h2><h3 id="1-请问C-11有哪些新特性？"><a href="#1-请问C-11有哪些新特性？" class="headerlink" title="1 请问C++11有哪些新特性？"></a>1 请问C++11有哪些新特性？</h3><p>C++11 最常用的新特性如下：</p>
+<p><strong>auto关键字</strong>：编译器可以根据初始值自动推导出类型。但是不能用于函数传参以及数组类型的推导</p>
+<p><strong>nullptr关键字</strong>：nullptr是一种特殊类型的字面值，它可以被转换成任意其它的指针类型；而NULL一般被宏定义为0，在遇到重载时可能会出现问题。</p>
+<p><strong>智能指针</strong>：C++11新增了std::shared_ptr、std::weak_ptr等类型的智能指针，用于解决内存管理的问题。</p>
+<p><strong>初始化列表</strong>：使用初始化列表来对类进行初始化</p>
+<p><strong>右值引用</strong>：基于右值引用可以<strong>实现移动语义和完美转发，消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率</strong></p>
+<p><strong>atomic原子操作用于多线程资源互斥操作</strong></p>
+<p><strong>新增STL容器array以及tuple</strong></p>
+<p>利用Lambda表达式，<strong>可以方便的定义和创建匿名函数</strong></p>
+<h3 id="2-请你详细介绍一下C-11中的可变参数模板、右值引用和lambda这几个新特性"><a href="#2-请你详细介绍一下C-11中的可变参数模板、右值引用和lambda这几个新特性" class="headerlink" title="2 请你详细介绍一下C++11中的可变参数模板、右值引用和lambda这几个新特性"></a>2 请你详细介绍一下C++11中的可变参数模板、右值引用和lambda这几个新特性</h3><p>可变参数模板：</p>
+<p>C++11的可变参数模板，对参数进行了高度泛化，可以表示任意数目、任意类型的参数，其语法为：在class或typename后面带上省略号”。</p>
+<p>右值引用:</p>
+<p>C++中，左值通常指可以取地址，有名字的值就是左值，而不能取地址，没有名字的就是右值。</p>
+<p>利用Lambda表达式，<strong>可以方便的定义和创建匿名函数</strong></p>
+<p>如果你觉得文章还不错，记得”<strong>点赞关注</strong>“</p>
+<p>关注我的微信公众号【 <strong>加班猿</strong> 】可以获取更多内容<br><img src="https://img-blog.csdnimg.cn/20201017112132917.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/05/11/%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">← Prev 常见面试题之设计模式</a><span style="color: #fe2"> | </span><a href="/2021/05/11/%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">常见面试题之操作系统 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><details id="reward"><summary>打赏</summary><div id="alipay"><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div id="wechat"><span>微信 | WeChat</span><br><img src="/img/WeChat.png"></div></details><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: 'Nq5lj4VJyzKxDJIKCQ8wQAWs-gzGzoHsz'
+ , appKey: 'RSAaB7CGtQpU2kjI3iFgD7Rz'
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a target="_blank" rel="noopener" href="https://github.com/coderhackett"> Dr.hackett</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">22</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">11</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">12</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E8%AF%AD%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">一、基本语言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">1、基本知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%B4%E4%B8%8BC-%E5%92%8CC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.1.</span> <span class="toc-text">1 说下C++和C的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%B4%E4%B8%80%E4%B8%8BC-%E4%B8%ADstatic%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">2 说一下C++中static关键字的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%B4%E4%B8%80%E8%AF%B4C-%E4%B8%AD%E5%9B%9B%E7%A7%8Dcast%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.1.3.</span> <span class="toc-text">3 说一说C++中四种cast转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%B4%E4%B8%80%E4%B8%8BC-C-%E4%B8%AD%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.4.</span> <span class="toc-text">4 说一下C&#x2F;C++中指针和引用的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%B4%E4%B8%80%E4%B8%8B%E6%8C%87%E9%92%88%E5%92%8C%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.5.</span> <span class="toc-text">5 说一下指针和数组的主要区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%AF%B4%E4%B8%80%E4%B8%8B%E9%87%8E%E6%8C%87%E9%92%88%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.1.6.</span> <span class="toc-text">6 说一下野指针是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%AF%B4%E4%B8%80%E4%B8%8BC-%E4%B8%AD%E7%9A%84%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-number">1.1.7.</span> <span class="toc-text">7 说一下C++中的智能指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%AF%B4%E4%B8%80%E4%B8%8B%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E6%9C%89%E6%B2%A1%E6%9C%89%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">1.1.8.</span> <span class="toc-text">8 说一下智能指针有没有内存泄露的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E8%AF%B4%E4%B8%80%E4%B8%8B%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">1.1.9.</span> <span class="toc-text">9 说一下智能指针内存泄露如何解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E5%BF%85%E9%A1%BB%E6%98%AF%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88C-%E9%BB%98%E8%AE%A4%E7%9A%84%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%8D%E6%98%AF%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.10.</span> <span class="toc-text">10 说一下为什么析构函数必须是虚函数？为什么C++默认的析构函数不是虚函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E8%AF%B4%E4%B8%80%E4%B8%8B%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="toc-number">1.1.11.</span> <span class="toc-text">11 说一下函数指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E8%AF%B4%E4%B8%80%E4%B8%8Bfork%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.12.</span> <span class="toc-text">12 说一下fork函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-%E8%AF%B4%E4%B8%80%E4%B8%8BC-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.13.</span> <span class="toc-text">13 说一下C++析构函数的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-%E8%AF%B4%E4%B8%80%E4%B8%8B%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0%E5%92%8C%E8%99%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.14.</span> <span class="toc-text">14 说一下静态函数和虚函数的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-%E5%86%99%E4%B8%AA%E5%87%BD%E6%95%B0%E5%9C%A8main%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E5%89%8D%E5%85%88%E8%BF%90%E8%A1%8C"><span class="toc-number">1.1.15.</span> <span class="toc-text">15 写个函数在main函数执行前先运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-C-%E6%80%8E%E4%B9%88%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F%EF%BC%9F%E5%B8%B8%E9%87%8F-%E5%AD%98%E6%94%BE%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E9%82%A3%E4%B8%AA%E4%BD%8D%E7%BD%AE%EF%BC%9F"><span class="toc-number">1.1.16.</span> <span class="toc-text">16 C++怎么定义常量？常量 存放在内存中的那个位置？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-const%E4%BF%AE%E9%A5%B0%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E7%9B%AE%E7%9A%84%EF%BC%9F"><span class="toc-number">1.1.17.</span> <span class="toc-text">17 const修饰成员函数的目的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-%E5%A6%82%E6%9E%9C%E5%90%8C%E6%97%B6%E5%AE%9A%E4%B9%89%E4%BA%86%E4%B8%A4%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%80%E4%B8%AA%E5%B8%A6const%EF%BC%8C%E4%B8%80%E4%B8%AA%E4%B8%8D%E5%B8%A6%EF%BC%8C%E4%BC%9A%E6%9C%89%E9%97%AE%E9%A2%98%E5%90%97%EF%BC%9F"><span class="toc-number">1.1.18.</span> <span class="toc-text">18 如果同时定义了两个函数，一个带const，一个不带，会有问题吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E8%AF%B4C-%E4%B8%AD%E7%9A%84%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9F"><span class="toc-number">1.1.19.</span> <span class="toc-text">19 请你来说一说C++中的隐式类型转换？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#20-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E8%AF%B4C-%E5%87%BD%E6%95%B0%E6%A0%88%E7%A9%BA%E9%97%B4%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC%EF%BC%9F"><span class="toc-number">1.1.20.</span> <span class="toc-text">20 请你来说一说C++函数栈空间的最大值？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E8%AF%B4extern%E2%80%9CC%E2%80%9D-%EF%BC%9F"><span class="toc-number">1.1.21.</span> <span class="toc-text">21 请你来说一说extern“C” ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E8%AF%B4%E4%BD%A0%E4%BA%86%E8%A7%A3%E7%9A%84RTTI%EF%BC%9F"><span class="toc-number">1.1.22.</span> <span class="toc-text">22 请你说说你了解的RTTI？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E8%AF%B4%E8%99%9A%E5%87%BD%E6%95%B0%E8%A1%A8%E5%85%B7%E4%BD%93%E6%98%AF%E6%80%8E%E6%A0%B7%E5%AE%9E%E7%8E%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E5%A4%9A%E6%80%81%E7%9A%84%EF%BC%9F"><span class="toc-number">1.1.23.</span> <span class="toc-text">23 请你说说虚函数表具体是怎样实现运行时多态的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E8%AF%B4C%E8%AF%AD%E8%A8%80%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%9B%E8%A1%8C%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E7%9A%84%EF%BC%9F"><span class="toc-number">1.1.24.</span> <span class="toc-text">24 请你说说C语言是怎么进行函数调用的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#25-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E8%AF%B4C%E8%AF%AD%E8%A8%80%E5%8F%82%E6%95%B0%E5%8E%8B%E6%A0%88%E9%A1%BA%E5%BA%8F%EF%BC%9F"><span class="toc-number">1.1.25.</span> <span class="toc-text">25 请你说说C语言参数压栈顺序？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#26-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E8%AF%B4C-%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%9F"><span class="toc-number">1.1.26.</span> <span class="toc-text">26 请你说说C++如何处理返回值？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#27-%E8%AF%B7%E4%BD%A0%E5%9B%9E%E7%AD%94%E4%B8%80%E4%B8%8BC-%E4%B8%AD%E6%8B%B7%E8%B4%9D%E8%B5%8B%E5%80%BC%E5%87%BD%E6%95%B0%E7%9A%84%E5%BD%A2%E5%8F%82%E8%83%BD%E5%90%A6%E8%BF%9B%E8%A1%8C%E5%80%BC%E4%BC%A0%E9%80%92%EF%BC%9F"><span class="toc-number">1.1.27.</span> <span class="toc-text">27 请你回答一下C++中拷贝赋值函数的形参能否进行值传递？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#28-%E8%AF%B7%E4%BD%A0%E5%9B%9E%E7%AD%94%E4%B8%80%E4%B8%8Bmalloc%E4%B8%8Enew%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.1.28.</span> <span class="toc-text">28 请你回答一下malloc与new区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#29-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4select-%EF%BC%9F"><span class="toc-number">1.1.29.</span> <span class="toc-text">29 请你说一说select  ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#30-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E8%AF%B4fork-wait-exec%E5%87%BD%E6%95%B0-%EF%BC%9F"><span class="toc-number">1.1.30.</span> <span class="toc-text">30 请你说说fork,wait,exec函数 ？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B1%BB%E5%92%8C%E6%95%B0%E6%8D%AE%E6%8A%BD%E8%B1%A1"><span class="toc-number">1.2.</span> <span class="toc-text">2.类和数据抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E4%B8%8BC-%E4%B8%AD%E7%B1%BB%E6%88%90%E5%91%98%E7%9A%84%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%EF%BC%9F"><span class="toc-number">1.2.1.</span> <span class="toc-text">1 请你来说一下C++中类成员的访问权限？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E4%B8%8BC-%E4%B8%ADstruct%E5%92%8Cclass%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.2.2.</span> <span class="toc-text">2 请你来说一下C++中struct和class的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%B7%E4%BD%A0%E5%9B%9E%E7%AD%94%E4%B8%80%E4%B8%8BC-%E7%B1%BB%E5%86%85%E5%8F%AF%E4%BB%A5%E5%AE%9A%E4%B9%89%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E6%88%90%E5%91%98%E5%90%97%EF%BC%9F"><span class="toc-number">1.2.3.</span> <span class="toc-text">3 请你回答一下C++类内可以定义引用数据成员吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%B7%E4%BD%A0%E5%9B%9E%E7%AD%94%E4%B8%80%E4%B8%8B%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%EF%BC%8C%E8%B7%9F%E5%B7%A6%E5%80%BC%E5%8F%88%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.2.4.</span> <span class="toc-text">4 请你回答一下什么是右值引用，跟左值又有什么区别？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%BC%96%E8%AF%91%E4%B8%8E%E5%BA%95%E5%B1%82"><span class="toc-number">1.3.</span> <span class="toc-text">3.编译与底层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AAC-%E6%BA%90%E6%96%87%E4%BB%B6%E4%BB%8E%E6%96%87%E6%9C%AC%E5%88%B0%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E7%BB%8F%E5%8E%86%E7%9A%84%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="toc-number">1.3.1.</span> <span class="toc-text">1 请你来说一下一个C++源文件从文本到可执行文件经历的过程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%B7%E4%BD%A0%E5%9B%9E%E7%AD%94%E4%B8%80%E4%B8%8Bmalloc%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%8C%E5%8F%A6%E5%A4%96brk%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8Cmmap%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E4%BD%9C%E7%94%A8%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.3.2.</span> <span class="toc-text">2 请你回答一下malloc的原理，另外brk系统调用和mmap系统调用的作用分别是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AF%B7%E4%BD%A0%E8%AF%B4%E4%B8%80%E8%AF%B4C-%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="toc-number">1.3.3.</span> <span class="toc-text">3 请你说一说C++的内存管理是怎样的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%AF%B7%E4%BD%A0%E5%9B%9E%E7%AD%94%E4%B8%80%E4%B8%8B%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%EF%BC%9F"><span class="toc-number">1.3.4.</span> <span class="toc-text">4 请你回答一下如何判断内存泄漏？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%8F%91%E7%94%9F%E6%AE%B5%E9%94%99%E8%AF%AF%EF%BC%9F"><span class="toc-number">1.3.5.</span> <span class="toc-text">5 请你来说一下什么时候会发生段错误？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%AF%B7%E4%BD%A0%E6%9D%A5%E8%AF%B4%E4%B8%80%E4%B8%8Breactor%E6%A8%A1%E5%9E%8B%E7%BB%84%E6%88%90-%EF%BC%9F"><span class="toc-number">1.3.6.</span> <span class="toc-text">6 请你来说一下reactor模型组成 ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%AF%B7%E8%87%AA%E5%B7%B1%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%8B%E5%A6%82%E4%BD%95%E9%87%87%E7%94%A8%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E9%AB%98%E5%B9%B6%E5%8F%91%EF%BC%9F"><span class="toc-number">1.3.7.</span> <span class="toc-text">7 请自己设计一下如何采用单线程的方式处理高并发？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-C-11"><span class="toc-number">1.4.</span> <span class="toc-text">4.C++11</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AF%B7%E9%97%AEC-11%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9F"><span class="toc-number">1.4.1.</span> <span class="toc-text">1 请问C++11有哪些新特性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AF%B7%E4%BD%A0%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BC-11%E4%B8%AD%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF%E3%80%81%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E5%92%8Clambda%E8%BF%99%E5%87%A0%E4%B8%AA%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-number">1.4.2.</span> <span class="toc-text">2 请你详细介绍一下C++11中的可变参数模板、右值引用和lambda这几个新特性</span></a></li></ol></li></ol></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>

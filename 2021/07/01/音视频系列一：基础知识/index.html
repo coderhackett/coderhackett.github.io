@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>音视频系列一：基础知识 | 加班猿</title><script src="https://cdn.bootcss.com/valine/1.4.4/Valine.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/mermaid/8.8.2/mermaid.min.js"></script><script>mermaid.initialize({
+  startOnLoad: true
+  , theme: 'dark'
+});</script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 5.2.0"></head><body><header><nav><a href="/">Home</a><a href="/archives/">Archives</a></nav></header><main><article><div id="post-bg"><div id="post-title"><div id="post-info"><span>date:<time datetime="2021-06-30T16:00:00.000Z" id="date"> 2021-07-01</time></span><br><span>updated:<time datetime="2021-07-01T16:02:01.311Z" id="updated"> 2021-07-02</time></span></div><h1>音视频系列一：基础知识</h1><hr></div><div id="post-content"><p><img src="https://img-blog.csdnimg.cn/20201029203102512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div align = 'right'>作者：hackett</div>
+
+<div align = 'right'>微信公众号：加班猿</div>
+
+<h1 id="音视频系列一：基础知识"><a href="#音视频系列一：基础知识" class="headerlink" title="音视频系列一：基础知识"></a>音视频系列一：基础知识</h1><p>开篇：5G时代已经开启，音视频产业会有质的飞跃，随着知识产权和版权保护数字技术发展，数字音视频会实现爆发式增长，未来会形成一个全域的音视频服务生态，由于各方面需要音视频相关知识，于是决定开一个音视频系列的坑，接下来会一期一期地慢慢填。</p>
+<h2 id="一、音视频录制概念"><a href="#一、音视频录制概念" class="headerlink" title="一、音视频录制概念"></a>一、音视频录制概念</h2><p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232553.png" alt="image-20210701215317462"></p>
+<h2 id="二、音视频播放原理"><a href="#二、音视频播放原理" class="headerlink" title="二、音视频播放原理"></a>二、音视频播放原理</h2><p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232603.png" alt="image-20210701215350222"></p>
+<h2 id="三、图像表示概念"><a href="#三、图像表示概念" class="headerlink" title="三、图像表示概念"></a>三、图像表示概念</h2><h3 id="1、RGB格式"><a href="#1、RGB格式" class="headerlink" title="1、RGB格式"></a>1、RGB格式</h3><p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232609.png" alt="image-20210701215621280"></p>
+<h3 id="2、YUV格式"><a href="#2、YUV格式" class="headerlink" title="2、YUV格式"></a>2、YUV格式</h3><p>Y’UV的发明是由于彩色电视与黑白电视的过渡时期。黑白视频只有Y（Luma，Luminance）视频，也就是灰阶值。到了彩色电视规格的制定，是以YUV/YIQ的格式来处理彩色电视图像，把UV视作表示彩度的C（Chrominance或Chroma），如果忽略C信号，那么剩下的Y（Luma）信号就跟之前的黑白电视频号相同，这样一来便解决彩色电视机与黑白电视机的兼容问题。Y’UV最大的优点在于只需占用极少的带宽，因为人眼对亮度敏感，对色度不敏感，因此减少部分UV的数据量，但人眼感知不到。</p>
+<p>YUV也称为YCbCr，对于每个分量如下：</p>
+<ul>
+<li>  Y：Luminance, 亮度，也就是灰度值。除了表示亮度信号外，还含有较多的绿色通道量。</li>
+<li>  U：Cb，蓝色通道与亮度的差值。</li>
+<li>  V：Cr，红色通道与亮度的差值。</li>
+</ul>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232615.png" alt="image-20210701215657334"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232631.png" alt="image-20210701215902199"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232641.png" alt="image-20210701215956835"></p>
+<h2 id="四、音频概念"><a href="#四、音频概念" class="headerlink" title="四、音频概念"></a>四、音频概念</h2><p>数字音频包括：采样频率、采样量化、编码</p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232650.png" alt="image-20210701221252091"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232656.png" alt="image-20210701221448538"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232703.png" alt="image-20210701221635303"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232711.png" alt="image-20210701221746624"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232718.png" alt="image-20210701221918546"></p>
+<h2 id="五、视频概念"><a href="#五、视频概念" class="headerlink" title="五、视频概念"></a>五、视频概念</h2><p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232755.png" alt="image-20210701220619023"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232836.png" alt="image-20210701220638831"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232822.png" alt="image-20210701220757101"></p>
+<h2 id="六、封装格式概念"><a href="#六、封装格式概念" class="headerlink" title="六、封装格式概念"></a>六、封装格式概念</h2><p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232850.png" alt="image-20210701222914478"></p>
+<h2 id="七、音视频同步概念"><a href="#七、音视频同步概念" class="headerlink" title="七、音视频同步概念"></a>七、音视频同步概念</h2><p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232850.png" alt="image-20210701223231395"></p>
+<p><img src="https://gitee.com/coderhackett/typoraimg/raw/master/image/20210701232906.png" alt="image-20210701223248926"></p>
+<p>如果你觉得文章还不错，可以给个”<strong>三连</strong>“</p>
+<p>我是<strong>加班猿</strong>，我们下期见</p>
+<p><img src="https://img-blog.csdnimg.cn/20201029203206698.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3ODI0MzU3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<div id="paginator"></div></div><div id="post-footer"><hr><a href="/2021/06/28/C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">C线程池 Next →</a><hr></div><div id="bottom-btn"><a id="to-index" href="#post-index" title="index">≡</a><a id="to-top" href="#post-title" title="to top">∧</a></div><details id="reward"><summary>打赏</summary><div id="alipay"><span>支付宝 | Alipay</span><br><img src="/img/Alipay.png"></div><div id="wechat"><span>微信 | WeChat</span><br><img src="/img/WeChat.png"></div></details><div id="Valine"></div><script>new Valine({
+ el: '#Valine'
+ , appId: 'Nq5lj4VJyzKxDJIKCQ8wQAWs-gzGzoHsz'
+ , appKey: 'RSAaB7CGtQpU2kjI3iFgD7Rz'
+ , placeholder: '此条评论委托企鹅物流发送'
+})</script></div></article><aside><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a target="_blank" rel="noopener" href="https://github.com/coderhackett"> Dr.hackett</a></h1><section id="total"><a id="total-archives" href="/archives"><span class="total-title">Archives Total:</span><span class="total-number">22</span></a><div id="total-tags"><span class="total-title">Tags:</span><span class="total-number">11</span></div><div id="total-categories"><span class="total-title">Categories:</span><span class="total-number">12</span></div></section></div><div id="aside-block"><h1>INDEX</h1><div id="post-index"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9F%B3%E8%A7%86%E9%A2%91%E7%B3%BB%E5%88%97%E4%B8%80%EF%BC%9A%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">音视频系列一：基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">一、音视频录制概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%9F%B3%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E5%8E%9F%E7%90%86"><span class="toc-number">1.2.</span> <span class="toc-text">二、音视频播放原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.</span> <span class="toc-text">三、图像表示概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81RGB%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">1、RGB格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81YUV%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">2、YUV格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%9F%B3%E9%A2%91%E6%A6%82%E5%BF%B5"><span class="toc-number">1.4.</span> <span class="toc-text">四、音频概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E8%A7%86%E9%A2%91%E6%A6%82%E5%BF%B5"><span class="toc-number">1.5.</span> <span class="toc-text">五、视频概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F%E6%A6%82%E5%BF%B5"><span class="toc-number">1.6.</span> <span class="toc-text">六、封装格式概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E9%9F%B3%E8%A7%86%E9%A2%91%E5%90%8C%E6%AD%A5%E6%A6%82%E5%BF%B5"><span class="toc-number">1.7.</span> <span class="toc-text">七、音视频同步概念</span></a></li></ol></li></ol></div></div><footer><nobr><span class="text-title">©</span><span class="text-content">1970 to 2020</span></nobr><wbr><nobr><span class="text-title">ICP</span><span class="text-content">——备案号——</span></nobr><wbr><wbr><nobr>published with&nbsp;<a target="_blank" rel="noopener" href="http://hexo.io">Hexo&nbsp;</a></nobr><wbr><nobr>Theme&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight&nbsp;</a></nobr><wbr><nobr>by&nbsp;<a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></nobr></footer></aside></main><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script></body></html>
